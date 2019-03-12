@@ -1,0 +1,23 @@
+body {
+  max-height: 460px;
+}
+
+/*.main-content {
+  margin-top: 80px;
+}*/
+
+.navbar-brand {
+  /*color: #fff !important;*/
+  font-size: 1.5em;
+}
+
+.navbar .navbar-brand {
+  height: 2.5em;
+}
+
+iframe {
+  padding: 5px;
+  border: 1px solid #ddd !important;
+  border-radius: 6px;
+  background-color: #fff;
+}

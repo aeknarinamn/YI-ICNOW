@@ -1,0 +1,32 @@
+.navbar {
+  height: 86px;
+}
+
+.nav-tabs {
+  display: none;
+}
+
+p {
+  position: relative;
+}
+
+div.strikeout p:before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  border-bottom: 1px solid #111;
+  width: 95%;
+}
+
+#file {
+  margin-bottom: 5px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+#chk_box {
+  margin: 5px 10px;
+}

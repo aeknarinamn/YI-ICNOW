@@ -1,0 +1,11 @@
+.thank-banner-wrap {
+    padding: 10.67vw 5vw 8vw;
+}
+
+.thank-button {
+    padding: 0 16vw;
+}
+
+.thank-button .image-btn:first-child {
+    margin-bottom: 6px;
+}

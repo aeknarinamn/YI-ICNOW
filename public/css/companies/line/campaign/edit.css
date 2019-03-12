@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+}
+
+textarea {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
+.message {
+  overflow: auto;
+}
+
+.img-column {
+  text-align: center;
+  margin: 0 15px;
+}
+
+.radio input[type="radio"] {
+  margin: 0;
+  position: relative;
+}
+.radio label {
+  padding: 0;
+}
+
+#img_table {
+  width: 240px;
+}
+#img_table tr td {
+  border: 1px solid #ddd;
+  vertical-align: middle;
+  text-align: center;
+}
+#img_table tr td.active {
+  background-color: #357bb5;
+}
+#img_table tr td.active > a {
+  color: #fff;
+}

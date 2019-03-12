@@ -1,0 +1,16 @@
+.contact-wrap {
+    padding: 24px 16px 8px;
+}
+
+.contact-inner-wrap {
+    background-color: #FFF;
+    text-align: center;
+    padding: 18px;
+    min-height: 76vh;
+}
+
+.contact-inner-wrap .contact-title {
+    font-size: 9vw;
+    color: #cd352e;
+    margin-bottom: 24px;
+}

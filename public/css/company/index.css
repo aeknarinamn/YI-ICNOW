@@ -1,0 +1,39 @@
+.navbar {
+  height: 86px;
+}
+
+.nav-tabs {
+  display: none;
+}
+
+.panel-primary {
+  border-radius: 0px;
+  border-top-width: 5px;
+}
+
+p {
+  position: relative;
+}
+
+div.strikeout p:before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  border-bottom: 1px solid #111;
+  width: 100%;
+}
+
+#file {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+}

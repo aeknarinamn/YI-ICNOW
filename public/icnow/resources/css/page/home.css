@@ -1,0 +1,68 @@
+.show-product-list {
+    padding: 12px;
+}
+
+.show-product-list .is-row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -8px;
+}
+
+.show-product-list .is-50 {
+    padding-right: 8px;
+    width: 50%;
+}
+
+.show-product-list .show-product-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 8px;
+    margin-top: 2%;
+}
+
+.show-product-list .show-product-title .show-product-title-image {
+    position: relative;
+    width: 44%;
+}
+
+.show-product-list .show-product-title img {
+    width: 100%;
+    height: auto;
+
+}
+
+.show-product-list .show-product-subtitle {
+    position: absolute;
+    width: 48%;
+    top: -38%;
+    right: -32%;
+}
+
+.show-product-list .show-product-subtitle img {
+    width: 100%;
+    height: auto;
+}
+
+.footer-image {
+    bottom: 0;
+    position: fixed;
+    right: 5px;
+    width: 24vw;
+    z-index: 10000;
+}
+
+@media only screen and (min-width: 900px)  {
+    .footer-image {
+        width: 15vw;
+    }
+}
+
+/* iPhone X */
+
+/*@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    .footer-image {
+        bottom: 44px;
+    }
+}*/

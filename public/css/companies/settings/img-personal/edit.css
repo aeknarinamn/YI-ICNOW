@@ -1,0 +1,18 @@
+table{width:100%}textarea{border-top-left-radius:0px !important;border-top-right-radius:0px !important}.message{overflow:auto}.img-column{text-align:center;margin:0 15px}.radio input[type="radio"]{margin:0;position:relative}.radio label{padding:0}#img_table{width:240px}#img_table tr td{border:1px solid #ddd;vertical-align:middle;text-align:center}#img_table tr td.active{background-color:#357bb5}#img_table tr td.active>a{color:#fff}#text-label{font-weight: normal;}.modal-header{background-color: #F8FBEF;}.modal-footer{background-color: #F8FBEF;}select#until{margin-left: 20px} input.form-control#datetime{width: 100%}label#recurrence{margin-top: 10px}label#start-mailing{margin-top: 10px}input#sent_date_start_recurring{width: 100%}input#sent_date_start_one_time {width: 100%; .modal.fade{width: 100%}
+}
+
+
+.col-xs-3>.panel.panel-default{
+	/*margin-top: 74px;*/
+}
+.col-xs-9>.row{
+	margin-bottom:20px;
+	margin-top:20px;
+}
+.col-xs-9>.row>.form-inline>.col-xs-4>.form-control{
+	width: 210px;
+}
+#coords{
+	 margin-bottom: 15px;
+}
+

@@ -1,0 +1,17 @@
+@font-face {
+    font-family: Kittithada;
+    font-weight: lighter;
+    src: url("../fonts/PSL240pro.ttf") format('truetype')
+}
+
+@font-face {
+    font-family: Kittithada;
+    font-weight: normal;
+    src: url("../fonts/PSL244pro.ttf") format('truetype')
+}
+
+@font-face {
+    font-family: Kittithada;
+    font-weight: bold;
+    src: url("../fonts/PSL245pro.ttf") format('truetype')
+}

@@ -1,0 +1,29 @@
+<?php
+
+namespace YellowProject\ICNOW\ShoppingCart;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ShoppingCartItemDetailCustomItem extends Model
+{
+    public $timestamps = true;
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'fact_icnow_shopping_cart_item_detail_custom_item';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'shopping_cart_item_custom_id',
+        'item_name',
+        'item_value',
+        'price',
+    ];
+}

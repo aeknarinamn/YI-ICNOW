@@ -1,0 +1,86 @@
+{
+    "coupon_form_save_btn_color1": "#f8bfbd",
+    "coupon_form_save_btn_color2": "#f8bfbd",
+    "coupon_form_back_btn_color1": "#a5151a",
+    "coupon_form_back_btn_color2": "#a5151a",
+    "profilling_dogjun_color": "#e27826",
+    "segment": {
+        "coupon_api": "/api/coupon"
+    },
+    "carousel_action_mapping": [{
+            "id": "",
+            "title": "No Action"
+        },
+        {
+            "id": "Web Link URL",
+            "title": "Web Link URL"
+        },
+        {
+            "id": "Keyword",
+            "title": "Keyword"
+        },
+        {
+            "id": "Tel",
+            "title": "Tel"
+        },
+        {
+            "id": "Google Map",
+            "title": "Google Map"
+        },
+        {
+            "id": "Location",
+            "title": "Location"
+        }
+    ],
+    "carousel_field_csv_mapping": [
+        "ignore",
+        "name",
+        "description",
+        "image_url",
+        "keyword",
+        "link_url_1",
+        "link_url_2",
+        "link_url_3",
+        "tel_1",
+        "tel_2",
+        "tel_3",
+        "keyword_text_1",
+        "keyword_text_2",
+        "keyword_text_3",
+        "latitude",
+        "longtitude",
+        "auto_reply_keyword",
+        "auto_reply_message",
+        "autoreply_title",
+        "autoreply_folder_name"
+    ],
+    "carousel_options": {
+        "show_conf": true,
+        "show_is_autoreply": true
+    },
+    "carousel_csv_old_column": [
+        { "field": "id", "title": "id", "sortable": true, "align": "center", "visible": false },
+        { "field": "_no", "title": "#", "sortable": true, "align": "center" },
+        { "field": "name", "title": "name", "sortable": true, "align": "left" },
+        { "field": "description", "title": "description", "sortable": true, "align": "left" },
+        { "field": "image_url", "title": "image_url", "sortable": true, "align": "left" },
+        { "field": "keyword", "title": "keyword", "sortable": true, "align": "left" },
+        { "field": "link_url_1", "title": "link_url_1", "sortable": true, "align": "left" },
+        { "field": "link_url_2", "title": "link_url_2", "sortable": true, "align": "left" },
+        { "field": "link_url_3", "title": "link_url_3", "sortable": true, "align": "left" },
+        { "field": "tel_1", "title": "tel_1", "sortable": true, "align": "left" },
+        { "field": "tel_2", "title": "tel_2", "sortable": true, "align": "left" },
+        { "field": "tel_3", "title": "tel_3", "sortable": true, "align": "left" },
+        { "field": "keyword_text_1", "title": "keyword_text_1", "sortable": true, "align": "left" },
+        { "field": "keyword_text_2", "title": "keyword_text_2", "sortable": true, "align": "left" },
+        { "field": "keyword_text_3", "title": "keyword_text_3", "sortable": true, "align": "left" },
+        { "field": "latitude", "title": "latitude", "sortable": true, "align": "left" },
+        { "field": "longtitude", "title": "longtitude", "sortable": true, "align": "left" },
+        { "field": "auto_reply_keyword", "title": "auto_reply_keyword", "sortable": true, "align": "left" },
+        { "field": "auto_reply_message", "title": "auto_reply_message", "sortable": true, "align": "left" },
+        { "field": "autoreply_title", "title": "autoreply_title", "sortable": true, "align": "left" },
+        { "field": "autoreply_folder_name", "title": "autoreply_folder_name", "sortable": true, "align": "left" },
+        { "field": "_btn_edit", "title": "edit", "sortable": false, "align": "center" },
+        { "field": "_btn_delete", "title": "delete", "sortable": false, "align": "center" }
+    ]
+}

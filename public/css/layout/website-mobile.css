@@ -1,0 +1,29 @@
+.margin-top {
+	margin-top: 20px;
+}
+.h_blue {
+	color: #14578c;
+	margin-top: 0;
+}
+#bg-top img {
+	position: absolute;
+    top: 0;
+    width: 100%;
+    height: 55px;
+    z-index: -1;
+}
+#bg-bottom img {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    z-index: -1;
+}
+#bg-top img, #bg-bottom img {
+     -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+.panel {
+	position: relative;
+	z-index: 0;
+}

@@ -1,0 +1,141 @@
+@font-face {
+    font-family: 'RSU_Regular';
+    src: url('../fonts/RSU/RSU_Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RSU_light';
+    src: url('../fonts/RSU/RSU_light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RSU_BOLD';
+    src: url('../fonts/RSU/RSU_BOLD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'kittithada_thin_35_rd_proRg';
+    src: url('../fonts/newfront_thai/psl367pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl367pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'kittithada_thin_35_rd_proIt';
+    src: url('../fonts/newfront_thai/psl368pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl368pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'kittithada_light_45_rd_proRg';
+    src: url('../fonts/newfront_thai/psl369pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl369pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'kittithada_light_45_rd_proIt';
+    src: url('../fonts/newfront_thai/psl370pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl370pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'kittithada_roman_55_rd_proRg';
+    src: url('../fonts/newfront_thai/psl371pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl371pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'kittithada_roman_55_rd_proIt';
+    src: url('../fonts/newfront_thai/psl372pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl372pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'kittithada_medium_65_rd_proRg';
+    src: url('../fonts/newfront_thai/psl373pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl373pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'kittithada_medium_65_rd_proIt';
+    src: url('../fonts/newfront_thai/psl374pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl374pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'kittithada_bold_75_rd_proRg';
+    src: url('../fonts/newfront_thai/psl375pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl375pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'kittithada_bold_75_rd_proIt';
+    src: url('../fonts/newfront_thai/psl376pro-webfont.woff2') format('woff2'),
+         url('../fonts/newfront_thai/psl376pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'pslbold';
+    src: url('../fonts/PSL373Pro.otf') format('woff2')
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'pslregular';
+    src : url(../fonts/PSL371Pro.otf) format('opentype'),
+    url(../fonts/PSL371Pro.ttf) format('truetype'),
+    url(../fonts/PSL371Pro.woff) format('woff');
+    font-weight:400;
+    font-style:normal;
+}
+
