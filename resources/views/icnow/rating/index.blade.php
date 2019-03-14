@@ -53,7 +53,8 @@
             <section>
                 <div class="contact-wrap">
                     <div class="deliver-date">
-                        <div class="deliver-date-title"><font size="5px">คุณภาพสินค้า</font></div>
+                        <div class="text-center"><font size="6px"><b>แบบประเมิณความพึงพอใจ</b></font></div>
+                        <div class="deliver-date-title"><font size="4px">คุณภาพสินค้า</font></div>
                         <div class="star-rating">
                             <span class="fa fa-star-o" data-rating="1"></span>
                             <span class="fa fa-star-o" data-rating="2"></span>
@@ -62,7 +63,7 @@
                             <span class="fa fa-star-o" data-rating="5"></span>
                             <input type="hidden" id="rating_1" name="rating_1" class="rating-value" value="0">
                         </div>
-                        <div class="deliver-date-title"><font size="5px">ความรวดเร็วในการให้บริการ</font></div>
+                        <div class="deliver-date-title"><font size="4px">ความรวดเร็วในการให้บริการ</font></div>
                         <div class="star-rating-2">
                             <span class="fa fa-star-o" data-rating="1"></span>
                             <span class="fa fa-star-o" data-rating="2"></span>
@@ -71,7 +72,7 @@
                             <span class="fa fa-star-o" data-rating="5"></span>
                             <input type="hidden" id="rating_2" name="rating_2" class="rating-value" value="0">
                         </div>
-                        <div class="deliver-date-title"><font size="5px">มารยาทในการให้บริการโดยรวม</font></div>
+                        <div class="deliver-date-title"><font size="4px">มารยาทในการให้บริการโดยรวม</font></div>
                         <div class="star-rating-3">
                             <span class="fa fa-star-o" data-rating="1"></span>
                             <span class="fa fa-star-o" data-rating="2"></span>
@@ -80,7 +81,7 @@
                             <span class="fa fa-star-o" data-rating="5"></span>
                             <input type="hidden" id="rating_3" name="rating_3" class="rating-value" value="0">
                         </div>
-                        <div class="deliver-date-title"><font size="5px">ความพึงพอใจโดยรวมในบริการ</font></div>
+                        <div class="deliver-date-title"><font size="4px">ความพึงพอใจโดยรวมในบริการ</font></div>
                         <div class="star-rating-4">
                             <span class="fa fa-star-o" data-rating="1"></span>
                             <span class="fa fa-star-o" data-rating="2"></span>
@@ -89,8 +90,8 @@
                             <span class="fa fa-star-o" data-rating="5"></span>
                             <input type="hidden" id="rating_4" name="rating_4" class="rating-value" value="0">
                         </div>
-                        <div class="deliver-date-title"><font size="5px">ข้อเสนอแนะเพิ่ม</font></div>
-                        <textarea cols="50" rows="4" name="suggestion"></textarea>
+                        <div class="deliver-date-title"><font size="4px">ข้อเสนอแนะเพิ่ม</font></div>
+                        <textarea cols="35" rows="4" name="suggestion"></textarea>
                     </div>
                 </div>
             </section>

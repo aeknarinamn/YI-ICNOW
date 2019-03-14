@@ -410,7 +410,7 @@ class ReportController extends Controller
                 $datas[$count]['Product 6'] = $dataShoppingCartDatas['product_6'];
                 $datas[$count]['#(Product 6)'] = $dataShoppingCartDatas['product__quanlity_6'];
                 $datas[$count]['Total Paid'] = number_format($shoppingCartItem->retial_price,2)." THB";
-                $datas[$count]['Province'] = $customerShippingAddress->province;
+                $datas[$count]['Province'] = ($customerShippingAddress)? $customerShippingAddress->province : "N/A";
                 $datas[$count]['Mini Number'] = $orderCustomer->mini_code;
                 $datas[$count]['WM Number'] = $orderCustomer->walls_code;
                 $totalTimeTaken = "0 minutes";

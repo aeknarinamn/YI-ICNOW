@@ -269,12 +269,16 @@ class ShoppingCartController extends Controller
         }
         $items = $request->items;
         foreach ($items as $key => $item) {
-            $item['shopping_cart_item_id'] = $shoppingCartItem->id;
-            $shoppingCartItemDetailCustom = ShoppingCartItemDetailCustom::create($item);
-            $itemChooses = $item['group_items'];
-            foreach ($itemChooses as $key => $itemChoose) {
-                $itemChoose['shopping_cart_item_custom_id'] = $shoppingCartItemDetailCustom->id;
-                ShoppingCartItemDetailCustomItem::create($itemChoose);
+            if($item['choose_item'] > 0){
+                $item['shopping_cart_item_id'] = $shoppingCartItem->id;
+                $shoppingCartItemDetailCustom = ShoppingCartItemDetailCustom::create($item);
+                $itemChooses = $item['group_items'];
+                foreach ($itemChooses as $key => $itemChoose) {
+                    if($itemChoose['item_value'] > 0){
+                        $itemChoose['shopping_cart_item_custom_id'] = $shoppingCartItemDetailCustom->id;
+                        ShoppingCartItemDetailCustomItem::create($itemChoose);
+                    }
+                }
             }
         }
 

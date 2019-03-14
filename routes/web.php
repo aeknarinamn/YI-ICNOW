@@ -269,6 +269,12 @@ Route::resource('api-folder-campagin', 'API\v1\CampaignFolderController');
   Route::get('mini-logout', 'ICNOW\Mini\MiniController@logOutPage');
 //
 
+  Route::get('/test-send-message-nn', function () {
+      $lineUserProfile = \YellowProject\LineUserProfile::find(2);
+      $orderCustomer = \YellowProject\ICNOW\OrderCustomer\OrderCustomer::find(24);
+      \YellowProject\ICNOW\CoreLineFunction\CoreLineFunction::pushMessageToCustomerOrder($lineUserProfile,$orderCustomer);
+  });
+
 // Route::get('/clear-data', function () {
 //   \YellowProject\ICNOW\OrderCustomer\CustomerShippingAddress::truncate();
 //   \YellowProject\ICNOW\OrderCustomer\OrderCustomer::truncate();

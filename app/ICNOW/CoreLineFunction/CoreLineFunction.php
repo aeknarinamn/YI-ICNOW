@@ -18,10 +18,14 @@ use YellowProject\ICNOW\AdminUser\AdminUser;
 class CoreLineFunction extends Model
 {
 
-  public static function getQueryDatas($orderCustomer)
+  public static function getQueryDatas($orderCustomer,$section = null)
   {
     $orderCustomer = OrderCustomer::find($orderCustomer->id);
-    $shoppingCartItems = ShoppingCartItem::where('shopping_cart_id',$orderCustomer->shopping_cart_id)->get();
+    if($section != null){
+      $shoppingCartItems = ShoppingCartItem::where('shopping_cart_id',$orderCustomer->shopping_cart_id)->where('section_id',$section)->get();
+    }else{
+      $shoppingCartItems = ShoppingCartItem::where('shopping_cart_id',$orderCustomer->shopping_cart_id)->get();
+    }
     $customerShippingAddress = CustomerShippingAddress::find($orderCustomer->address_id);
     $mini = Mini::find($orderCustomer->mini_id);
     $beforeDiscount = $shoppingCartItems->sum('before_price_discount');
@@ -92,6 +96,25 @@ class CoreLineFunction extends Model
         $datas['shopping_carts'][$key]['details']['person_in_party'] = $shoppingCartItemDetailDiy->person_in_party;
         $datas['shopping_carts'][$key]['details']['product_focus'] = $shoppingCartItemDetailDiyItems->pluck('value')->toArray();
         $datas['shopping_carts'][$key]['details']['comment'] = $shoppingCartItemDetailDiy->comment;
+      }else if($shoppingCartItem->section_id == 3){
+        $allQuantityCustom = 0;
+        $shoppingCartItemDetailCustoms = $shoppingCartItem->shoppingCartItemDetailCustoms;
+        $datas['shopping_carts'][$key]['details']['group_items'] = [];
+        foreach ($shoppingCartItemDetailCustoms as $keyPartySet => $shoppingCartItemDetailCustom) {
+          $shoppingCartItemDetailCustomItems = $shoppingCartItemDetailCustom->shoppingCartItemDetailCustomItems;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailCustom->group_name;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailCustom->choose_item;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailCustom->max_item;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['unit'] = $shoppingCartItemDetailCustom->unit;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
+          foreach ($shoppingCartItemDetailCustomItems as $keyPartySetItem => $shoppingCartItemDetailCustomItem) {
+            $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailCustomItem->item_name;
+            $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailCustomItem->item_value;
+            $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = $shoppingCartItemDetailCustomItem->price;
+            $allQuantityCustom = $allQuantityCustom + $shoppingCartItemDetailCustomItem->item_value;
+          }
+        }
+        $datas['all_quantity'] = $allQuantityCustom;
       }else{
         $shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
         $datas['shopping_carts'][$key]['details']['group_items'] = [];
@@ -100,12 +123,12 @@ class CoreLineFunction extends Model
           $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailPartySet->group_name;
           $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailPartySet->choose_item;
           $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailPartySet->max_item;
+          $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['unit'] = $shoppingCartItemDetailPartySet->unit;
           $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
           foreach ($shoppingCartItemDetailPartySetItems as $keyPartySetItem => $shoppingCartItemDetailPartySetItem) {
             $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailPartySetItem->item_name;
             $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailPartySetItem->item_value;
           }
-
         }
       }
     }
@@ -113,44 +136,97 @@ class CoreLineFunction extends Model
     return $datas;
   }
 
-	public static function pushMessageToCustomerOrder($lineUserProfile,$orderCustomer)
-	{
-    $queryDatas = self::getQueryDatas($orderCustomer);
+  public static function pushMessageToCustomerOrder($lineUserProfile,$orderCustomer)
+  {
     $type = 1;
-    $messages[0]  = CoreLineFunction::setHeader($queryDatas,$type);
+    $count = 0;
+    $section = 1;
+    $queryDatas = self::getQueryDatas($orderCustomer,$section);
+    if(count($queryDatas['shopping_carts']) > 0){
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
+    }
+    $section = 2;
+    $queryDatas = self::getQueryDatas($orderCustomer,$section);
+    if(count($queryDatas['shopping_carts']) > 0){
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
+    }
+    $section = 3;
+    $queryDatas = self::getQueryDatas($orderCustomer,$section);
+    if(count($queryDatas['shopping_carts']) > 0){
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
+    }
+    /*-------------------------comment 2019-03-11----------------------------------*/
     // $messages[1]  = CoreLineFunction::setBody($queryDatas,$type);
-		// $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
+    // $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
+    /*-------------------------comment 2019-03-11----------------------------------*/
     $message = collect($messages);
     self::pushMessage($lineUserProfile->mid,$message);
     self::pushMessageToMiniOrder($orderCustomer);
     self::pushMessageToAdminOrder($orderCustomer);
-	}
+  }
 
-	public static function pushMessageToMiniOrder($orderCustomer)
-	{
-    $queryDatas = self::getQueryDatas($orderCustomer);
+  public static function pushMessageToMiniOrder($orderCustomer)
+  {
     $type = 2;
-		$miniUser = MiniUser::where('dt_code',$orderCustomer->dt_code)->first();
-		if($miniUser){
-			$lineUserProfile = LineUserProfile::find($miniUser->line_user_id);
-			$messages[0]  = CoreLineFunction::setHeader($queryDatas,$type);
+    $count = 0;
+    $miniUser = MiniUser::where('dt_code',$orderCustomer->dt_code)->first();
+    if($miniUser){
+      $lineUserProfile = LineUserProfile::find($miniUser->line_user_id);
+      $section = 1;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
+      $section = 2;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
+      $section = 3;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
       // $messages[1]  = CoreLineFunction::setBody($queryDatas,$type);
       // $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
-	    $message = collect($messages);
-	    if($lineUserProfile){
+      $message = collect($messages);
+      if($lineUserProfile){
         self::pushMessage($lineUserProfile->mid,$message);
       }
-		}
-	}
+    }
+  }
 
   public static function pushMessageToAdminOrder($orderCustomer)
   {
     $type = 4;
-    $queryDatas = self::getQueryDatas($orderCustomer);
+    $count = 0;
     $adminUsers = AdminUser::where('is_user',1)->get();
     foreach ($adminUsers as $key => $adminUser) {
       $lineUserProfile = LineUserProfile::find($adminUser->line_user_id);
-      $messages[0]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $section = 1;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
+      $section = 2;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
+      $section = 3;
+      $queryDatas = self::getQueryDatas($orderCustomer,$section);
+      if(count($queryDatas['shopping_carts']) > 0){
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
+      }
       // $messages[1]  = CoreLineFunction::setHeaderMini($queryDatas,$type);
       // $messages[2]  = CoreLineFunction::setBody($queryDatas,$type);
       // $messages[3]  = CoreLineFunction::setFooter($queryDatas,$type);
@@ -703,6 +779,128 @@ class CoreLineFunction extends Model
               "type"=>"separator",
               "margin"=>"xl"
             ];
+          }else if($shoppingCart['section_id'] == 3){
+            $datas['contents']['body']['contents'][$count] = [
+              "type"=>"box",
+              "layout"=>"vertical",
+              "spacing"=>"sm",
+              "margin"=>"xl"
+            ];
+            $countSet = 0;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ชื่อสินค้า:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>$shoppingCart['product_name'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            foreach ($shoppingCart['details']['group_items'] as $key => $groupItems) {
+              $countSet++;
+              $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                "type"=>"box",
+                "layout"=>"horizontal",
+                "contents"=>[
+                  [
+                    "type"=>"text",
+                    "text"=>$groupItems['group_name'].":",
+                    "size"=>"sm",
+                    "color"=>"#555555",
+                    "flex"=>0
+                  ],
+                  [
+                    "type"=>"text",
+                    "text"=>"-",
+                    "size"=>"sm",
+                    "color"=>"#111111",
+                    "align"=>"end"
+                  ]
+                ]
+              ];
+              foreach ($groupItems['items'] as $key => $item) {
+                $countSet++;
+                $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                  "type"=>"box",
+                  "layout"=>"horizontal",
+                  "contents"=>[
+                    [
+                      "type"=>"text",
+                      "text"=>"-- ".$item['item_name'].":",
+                      "size"=>"sm",
+                      "color"=>"#555555",
+                      "flex"=>0
+                    ],
+                    [
+                      "type"=>"text",
+                      "text"=>$item['item_value']." ".$groupItems['unit']." ".$item['price']*$item['item_value']. " บาท",
+                      "size"=>"sm",
+                      "color"=>"#111111",
+                      "align"=>"end"
+                    ]
+                  ]
+                ];
+              }
+            }
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "margin"=>"xl",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"จำนวน:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['quantity'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ราคา:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['total']." บาท",
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"separator",
+              "margin"=>"xl"
+            ];
           }else{
             $datas['contents']['body']['contents'][$count] = [
               "type"=>"box",
@@ -731,6 +929,52 @@ class CoreLineFunction extends Model
                 ]
               ]
             ];
+            foreach ($shoppingCart['details']['group_items'] as $key => $groupItems) {
+              $countSet++;
+              $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                "type"=>"box",
+                "layout"=>"horizontal",
+                "contents"=>[
+                  [
+                    "type"=>"text",
+                    "text"=>$groupItems['group_name']."(".$groupItems['choose_item']."/".$groupItems['max_item']."):",
+                    "size"=>"sm",
+                    "color"=>"#555555",
+                    "flex"=>0
+                  ],
+                  [
+                    "type"=>"text",
+                    "text"=>"-",
+                    "size"=>"sm",
+                    "color"=>"#111111",
+                    "align"=>"end"
+                  ]
+                ]
+              ];
+              foreach ($groupItems['items'] as $key => $item) {
+                $countSet++;
+                $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                  "type"=>"box",
+                  "layout"=>"horizontal",
+                  "contents"=>[
+                    [
+                      "type"=>"text",
+                      "text"=>"-- ".$item['item_name'].":",
+                      "size"=>"sm",
+                      "color"=>"#555555",
+                      "flex"=>0
+                    ],
+                    [
+                      "type"=>"text",
+                      "text"=>$item['item_value']." ".$groupItems['unit'],
+                      "size"=>"sm",
+                      "color"=>"#111111",
+                      "align"=>"end"
+                    ]
+                  ]
+                ];
+              }
+            }
             $countSet++;
             $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
               "type"=>"box",
@@ -839,7 +1083,7 @@ class CoreLineFunction extends Model
             ],
             [
               "type"=>"text",
-              "text"=>(string)number_format($queryDatas['grand_total'],2)." THB",
+              "text"=>(string)number_format($queryDatas['grand_total'],2)." บาท",
               "size"=>"sm",
               "color"=>"#111111",
               "align"=>"end"
@@ -1317,7 +1561,7 @@ class CoreLineFunction extends Model
             ],
             [
               "type"=>"text",
-              "text"=>(string)$shoppingCart['total']." THB",
+              "text"=>(string)$shoppingCart['total']." บาท",
               "size"=>"sm",
               "color"=>"#111111",
               "align"=>"end"
@@ -1438,7 +1682,7 @@ class CoreLineFunction extends Model
             ],
             [
               "type"=>"text",
-              "text"=>(string)$shoppingCart['total']." THB",
+              "text"=>(string)$shoppingCart['total']." บาท",
               "size"=>"sm",
               "color"=>"#111111",
               "align"=>"end"
@@ -1540,7 +1784,7 @@ class CoreLineFunction extends Model
         ],
         [
           "type"=>"text",
-          "text"=>(string)number_format($queryDatas['before_discount_price'],2)." THB",
+          "text"=>(string)number_format($queryDatas['before_discount_price'],2)." บาท",
           "size"=>"sm",
           "color"=>"#111111",
           "align"=>"end"
@@ -1561,7 +1805,7 @@ class CoreLineFunction extends Model
         ],
         [
           "type"=>"text",
-          "text"=>(string)number_format($queryDatas['discount_price'],2)." THB",
+          "text"=>(string)number_format($queryDatas['discount_price'],2)." บาท",
           "size"=>"sm",
           "color"=>"#111111",
           "align"=>"end"
@@ -1582,7 +1826,7 @@ class CoreLineFunction extends Model
         ],
         [
           "type"=>"text",
-          "text"=>(string)number_format($queryDatas['sum_total'],2)." THB",
+          "text"=>(string)number_format($queryDatas['sum_total'],2)." บาท",
           "size"=>"sm",
           "color"=>"#111111",
           "align"=>"end"
@@ -1604,7 +1848,7 @@ class CoreLineFunction extends Model
         ],
         [
           "type"=>"text",
-          "text"=>(string)number_format($queryDatas['grand_total'],2)." THB",
+          "text"=>(string)number_format($queryDatas['grand_total'],2)." บาท",
           "size"=>"sm",
           "color"=>"#111111",
           "align"=>"end"
@@ -1691,15 +1935,15 @@ class CoreLineFunction extends Model
   }
 
   public static function pushMessageToCustomerConfirmOrder($orderCustomer)
-	{
+  {
     $queryDatas = self::getQueryDatas($orderCustomer);
-		$lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
-		$messages[0]  = CoreLineFunction::setFlexToCustomerConfirmOrder($queryDatas);
+    $lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
+    $messages[0]  = CoreLineFunction::setFlexToCustomerConfirmOrder($queryDatas);
     // $messages[0]  = CoreLineFunction::setHeader($queryDatas,$type);
     $message = collect($messages);
     self::pushMessage($lineUserProfile->mid,$message);
     self::pushMessageToAdminConfirmOrder($orderCustomer);
-	}
+  }
 
   public static function pushMessageToAdminConfirmOrder($orderCustomer)
   {
@@ -1717,9 +1961,9 @@ class CoreLineFunction extends Model
     }
   }
 
-	public static function setFlexToCustomerConfirmOrder($queryDatas)
+  public static function setFlexToCustomerConfirmOrder($queryDatas)
   {
-    	$datas = [
+      $datas = [
             "type"      => "flex",
             "altText"   => "ยืนยันคำสั่งซื้อ",
         ];
@@ -1931,7 +2175,7 @@ class CoreLineFunction extends Model
         ]
       ];
 
-		  return $datas;
+      return $datas;
     }
 
   public static function setFlexToCustomerDelivery($queryDatas)
@@ -2151,17 +2395,17 @@ class CoreLineFunction extends Model
     }
 
   public static function pushMessageToCustomerCancleOrder($orderCustomer)
-	{
+  {
     $queryDatas = self::getQueryDatas($orderCustomer);
-		$lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
-		$messages[0]  = CoreLineFunction::setFlexToCustomerCancleOrder($queryDatas);
+    $lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
+    $messages[0]  = CoreLineFunction::setFlexToCustomerCancleOrder($queryDatas);
     // $messages[0]  = CoreLineFunction::setHeader($queryDatas,$type=8);
     $message = collect($messages);
     self::pushMessage($lineUserProfile->mid,$message);
     self::pushMessageToAdminCancleOrder($orderCustomer);
-	}
+  }
 
-	public static function pushMessageToAdminCancleOrder($orderCustomer)
+  public static function pushMessageToAdminCancleOrder($orderCustomer)
   {
     // $type = 6;
     $type = 8;
@@ -2178,9 +2422,9 @@ class CoreLineFunction extends Model
     }
   }
 
-	public static function setFlexToCustomerCancleOrder($queryDatas)
+  public static function setFlexToCustomerCancleOrder($queryDatas)
   {
-    	$datas = [
+      $datas = [
         "type"      => "flex",
         "altText"   => "ปฎิเสธคำสั่งซื้อ",
       ];
@@ -2393,21 +2637,21 @@ class CoreLineFunction extends Model
         ]
       ];
 
-		  return $datas;
+      return $datas;
   }
 
   public static function pushMessageToCustomerDeliver($orderCustomer)
-	{
+  {
     $type = 3;
     $queryDatas = self::getQueryDatas($orderCustomer);
-		$lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
-		$messages[0]  = CoreLineFunction::setFlexToCustomerDelivery($queryDatas);
+    $lineUserProfile = LineUserProfile::find($orderCustomer->line_user_id);
+    $messages[0]  = CoreLineFunction::setFlexToCustomerDelivery($queryDatas);
     $message = collect($messages);
     self::pushMessage($lineUserProfile->mid,$message);
     self::pushMessageToAdminDeliver($orderCustomer);
-	}
+  }
 
-	public static function pushMessageToAdminDeliver($orderCustomer)
+  public static function pushMessageToAdminDeliver($orderCustomer)
   {
     $type = 7;
     $queryDatas = self::getQueryDatas($orderCustomer);

@@ -26,6 +26,7 @@ class ShoppingCartItemDetailPartySet extends Model
         'group_name',
         'choose_item',
         'max_item',
+        'unit',
     ];
 
     public function shoppingCartItemDetailPartySetItems()

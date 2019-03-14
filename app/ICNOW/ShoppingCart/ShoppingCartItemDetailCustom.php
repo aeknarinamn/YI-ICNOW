@@ -26,6 +26,7 @@ class ShoppingCartItemDetailCustom extends Model
         'group_name',
         'choose_item',
         'max_item',
+        'unit',
     ];
 
     public function shoppingCartItemDetailCustomItems()

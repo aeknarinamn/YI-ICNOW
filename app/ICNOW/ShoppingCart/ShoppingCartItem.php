@@ -5,6 +5,7 @@ namespace YellowProject\ICNOW\ShoppingCart;
 use Illuminate\Database\Eloquent\Model;
 use YellowProject\ICNOW\ShoppingCart\ShoppingCartItemDetailDiy;
 use YellowProject\ICNOW\ShoppingCart\ShoppingCartItemDetailPartySet;
+use YellowProject\ICNOW\ShoppingCart\ShoppingCartItemDetailCustom;
 
 class ShoppingCartItem extends Model
 {
@@ -47,5 +48,10 @@ class ShoppingCartItem extends Model
     public function shoppingCartItemDetailPartySets()
     {
         return $this->hasMany(ShoppingCartItemDetailPartySet::class,'shopping_cart_item_id','id');
+    }
+
+    public function shoppingCartItemDetailCustoms()
+    {
+        return $this->hasMany(ShoppingCartItemDetailCustom::class,'shopping_cart_item_id','id');
     }
 }

@@ -268,6 +268,16 @@
         </div>
     </div>
 
+    <div id="waiting-modal" class="modal">
+        <div class="modal-background" id="backgroundModal"></div>
+        <div class="modal-content">
+            <div class="modal-title">กรุณารอสักครู่</div>
+            <div class="modal-detail">
+                <p>ระบบกำลังทำการสั่งสินค้าให้ท่าน</p>
+            </div>
+        </div>
+    </div>
+
 
     <script src="/icnow/vendors/js/jquery-3.3.1.min.js"></script>
     <script src="/icnow/vendors/js/jquery.sumoselect.min.js"></script>
@@ -291,6 +301,8 @@
         }
         function saveShoppingCart()
         {
+            var modal = document.getElementById('waiting-modal');
+            modal.style.display = "block";
             $isCheck = 1;
             var msgError = ""; 
             var quantity = $('#quantity').val();
@@ -325,6 +337,7 @@
             }
 
             if($isCheck == 0){
+                modal.style.display = "none";
                 $('#alert-error-data').empty();
                 $('#alert-error-data').append(msgError);
                 var modal = document.getElementById('alertModal');

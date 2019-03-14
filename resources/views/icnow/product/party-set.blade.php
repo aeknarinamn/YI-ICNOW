@@ -85,6 +85,7 @@
                         @foreach($productPartySets as $productPartySet)
                             <input type="hidden" name="items[{{$count}}][group_id]" value="{{$productPartySet->id}}">
                             <input type="hidden" name="items[{{$count}}][group_name]" value="{{$productPartySet->group_name}}">
+                            <input type="hidden" name="items[{{$count}}][unit]" value="{{$productPartySet->unit}}">
                             <input type="hidden" name="items[{{$count}}][max_item]" id="items-value-max-{{$count}}" value="{{$productPartySet->volumn}}">
                             <input type="hidden" name="items[{{$count}}][choose_item]" id="items-value-choose-{{$count}}" value="0">
                             <input type="hidden" id="group-original-quantity-{{$count}}" value="{{$productPartySet->volumn}}">
@@ -182,6 +183,15 @@
             </div>
         </div>
     </div>
+    <div id="waiting-modal" class="modal">
+        <div class="modal-background" id="backgroundModal"></div>
+        <div class="modal-content">
+            <div class="modal-title">กรุณารอสักครู่</div>
+            <div class="modal-detail">
+                <p>ระบบกำลังทำการสั่งสินค้าให้ท่าน</p>
+            </div>
+        </div>
+    </div>
 
 
     <script src="/icnow/vendors/js/jquery-3.3.1.min.js"></script>
@@ -194,6 +204,8 @@
         }
         function saveShoppingCart()
         {
+            var modal = document.getElementById('waiting-modal');
+            modal.style.display = "block";
             $isCheck = 1;
             var msgError = ""; 
             var quantity = $('#quantity').val();
@@ -226,6 +238,7 @@
             }
 
             if($isCheck == 0){
+                modal.style.display = "none";
                 $('#alert-error-data').empty();
                 $('#alert-error-data').append(msgError);
                 var modal = document.getElementById('alertModal');

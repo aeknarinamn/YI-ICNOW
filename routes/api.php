@@ -342,5 +342,6 @@ Route::group(['middleware' => 'cors'], function() {
 	Route::post('icnow-address-add-to-cookie', 'ICNOW\View\AddressController@storeAddressDataToCookie');
 	Route::post('icnow-address-check-area-service', 'ICNOW\View\AddressController@checkAreaService');
 	Route::post('icnow-save-data-cache', 'API\v1\ICNOW\CacheData\CacheDataController@saveDataCache');
+	Route::post('icnow-submit-rating', 'ICNOW\View\CustomerOrderController@submitRating');
 	////////////////////////////////////////////////////////////////////////////////
 });

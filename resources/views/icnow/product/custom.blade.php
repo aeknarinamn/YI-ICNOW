@@ -13,6 +13,25 @@
     <link type="text/css" rel="stylesheet" href="/icnow/resources/css/fonts.css">
     <link type="text/css" rel="stylesheet" href="/icnow/resources/css/default.css">
     <link type="text/css" rel="stylesheet" href="/icnow/resources/css/page/product-detail.css">
+    <style type="text/css">
+        .set-position {
+            width: 80%;
+            max-width: 500px;
+            padding-left: 30px;
+            padding-right: 10px;
+        }
+        .f-right{
+            float: right;
+        }
+        .product-group .product-group-item-label .text {
+            margin-left: 10px;
+            width: 80%;
+        }
+
+        .product-group .product-group-item-label .text span{
+            float: right;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,19 +66,26 @@
                         @foreach($productPartySets as $productPartySet)
                             <input type="hidden" name="items[{{$count}}][group_id]" value="{{$productPartySet->id}}">
                             <input type="hidden" name="items[{{$count}}][group_name]" value="{{$productPartySet->group_name}}">
+                            <input type="hidden" name="items[{{$count}}][unit]" value="{{$productPartySet->unit}}">
                             <input type="hidden" name="items[{{$count}}][max_item]" id="items-value-max-{{$count}}" value="{{$productPartySet->volumn}}">
                             <input type="hidden" name="items[{{$count}}][choose_item]" id="items-value-choose-{{$count}}" value="0">
                             <input type="hidden" id="group-original-quantity-{{$count}}" value="{{$productPartySet->volumn}}">
-                            <div class="product-group">
+                            <div class="product-group" style="margin-bottom: 70px;">
                                 <div class="product-group-title ">
-                                     <div class="set-position">{{$productPartySet->group_name}} ( <span><label id="group-choose-{{$count}}">0</label></span> {{$productPartySet->unit}})</div>
-                                </div>                                
+                                     <div class="set-position" id="box-{{$count}}">
+                                        <label id="box-{{$count}}-position">+</label> {{$productPartySet->group_name}} 
+                                        <div class="f-right">
+                                            ( <span><label id="group-choose-{{$count}}">0</label></span> {{$productPartySet->unit}})
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php 
                                     $countMaxValue = $productPartySet->volumn;
                                     $maxCount = $productPartySet->productCustomItems->count();
                                     $genCount = 1;
                                     $checkCount = 1;
                                 ?>
+                                <div style="display: none" class="box-{{$count}}">
                                 @foreach($productPartySet->productCustomItems as $productPartySetItem)
                                     <?php 
                                         $randValue = $productPartySetItem->default_unit;
@@ -80,19 +106,20 @@
                                             </div>
                                         </div>
                                         <div class="product-group-item-label">
-                                            <div>
+                                            <div style="width: 35%">
                                                 <img src="{{$productPartySetItem->img_url}}">
                                             </div>
                                             <div class="text" style="margin-top: 10px">
-                                                <p >{{$productPartySetItem->value}}</p>
+                                                <p >{{$productPartySetItem->value}}:</p>
                                             </div>
                                             <div class="text" style="margin-top: 10px">
-                                                <p >ราคา {{$productPartySetItem->price}} บาท</p>
+                                                <p >{{$productPartySetItem->price}} บ.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <?php $countAll++; $checkCount++; ?>
                                 @endforeach
+                                </div>
                             </div>
                             <div class="line"></div>
                             <?php $count++; ?>
@@ -150,6 +177,15 @@
             </div>
         </div>
     </div>
+    <div id="waiting-modal" class="modal">
+        <div class="modal-background" id="backgroundModal"></div>
+        <div class="modal-content">
+            <div class="modal-title">กรุณารอสักครู่</div>
+            <div class="modal-detail">
+                <p>ระบบกำลังทำการสั่งสินค้าให้ท่าน</p>
+            </div>
+        </div>
+    </div>
 
 
     <script src="/icnow/vendors/js/jquery-3.3.1.min.js"></script>
@@ -160,8 +196,57 @@
         function closeModal(){
             $('#alertModal').hide();
         }
+
+
+        function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        
+        function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
+        $(".set-position").click(function(evt){
+            var showId = '.'+$(this).attr("id");
+            var click_name = 'click'+$(this).attr("id");
+            var click = getCookie(click_name);
+            if(click != ''){
+                if(click == 1){
+                    $('#'+$(this).attr("id")+'-position').text('+');
+                    $(showId).hide();
+                    setCookie(click_name,0,1);
+                }else{
+                    $('#'+$(this).attr("id")+'-position').text('-');
+                    $(showId).show();
+                    setCookie(click_name,1,1);
+                }
+            }else{
+                $('#'+$(this).attr("id")+'-position').text('-');
+                setCookie(click_name,1,1);
+                $(showId).show();
+            }
+
+        });
+
+
         function saveShoppingCart()
         {
+            var modal = document.getElementById('waiting-modal');
+            modal.style.display = "block";
             $isCheck = 1;
             var msgError = ""; 
             var totalPrice = $('#total_price').val();
@@ -195,6 +280,7 @@
             // }
 
             if($isCheck == 0){
+                modal.style.display = "none";
                 $('#alert-error-data').empty();
                 $('#alert-error-data').append(msgError);
                 var modal = document.getElementById('alertModal');

@@ -128,7 +128,22 @@ class OrderCustomerController extends Controller
     			$datas['shopping_carts'][$key]['details']['person_in_party'] = $shoppingCartItemDetailDiy->person_in_party;
     			$datas['shopping_carts'][$key]['details']['product_focus'] = $shoppingCartItemDetailDiyItems->pluck('value')->toArray();
     			$datas['shopping_carts'][$key]['details']['comment'] = $shoppingCartItemDetailDiy->comment;
-    		}else{
+    		}else if($shoppingCartItem->section_id == 3){
+                $shoppingCartItemDetailCustoms = $shoppingCartItem->shoppingCartItemDetailCustoms;
+                $datas['shopping_carts'][$key]['details']['group_items'] = [];
+                foreach ($shoppingCartItemDetailCustoms as $keyPartySet => $shoppingCartItemDetailCustom) {
+                    $shoppingCartItemDetailCustomItems = $shoppingCartItemDetailCustom->shoppingCartItemDetailCustomItems;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailCustom->group_name;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailCustom->choose_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailCustom->max_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
+                    foreach ($shoppingCartItemDetailCustomItems as $keyPartySetItem => $shoppingCartItemDetailCustomItem) {
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailCustomItem->item_name;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = $shoppingCartItemDetailCustomItem->price;
+                    }
+                }
+            }else{
     			$shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
     			$datas['shopping_carts'][$key]['details']['group_items'] = [];
     			foreach ($shoppingCartItemDetailPartySets as $keyPartySet => $shoppingCartItemDetailPartySet) {
