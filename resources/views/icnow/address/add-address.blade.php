@@ -137,9 +137,9 @@
                   geocodeLatLng(position.coords.latitude,position.coords.longitude);
                 }else{
                   if(province == 'เชียงใหม่'){
-                    geocodeLatLng(18.7049867,98.9795629);
+                    geocodeLatLng(18.6916607,97.6684463);
                   }else if(province == 'ชลบุรี'){
-                    geocodeLatLng(13.3613291,100.9794067);
+                    geocodeLatLng(13.0483868,100.6214983);
                   }
                 }
 
