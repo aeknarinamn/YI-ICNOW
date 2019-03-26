@@ -1,0 +1,73 @@
+[2018-11-22 14:57:36] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 14:57:36] local.DEBUG: return  
+[2018-11-22 14:57:37] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 14:57:37] local.DEBUG: return  
+[2018-11-22 16:16:24] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:16:24] local.DEBUG: return  
+[2018-11-22 16:16:25] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:16:25] local.DEBUG: return  
+[2018-11-22 16:16:25] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:16:25] local.DEBUG: return  
+[2018-11-22 16:19:11] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:19:11] local.DEBUG: return  
+[2018-11-22 16:19:12] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:19:12] local.DEBUG: return  
+[2018-11-22 16:19:12] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:19:12] local.DEBUG: return  
+[2018-11-22 16:20:06] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:20:06] local.DEBUG: return  
+[2018-11-22 16:20:07] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:20:07] local.DEBUG: return  
+[2018-11-22 16:20:07] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:20:07] local.DEBUG: return  
+[2018-11-22 16:23:48] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:23:48] local.DEBUG: return  
+[2018-11-22 16:23:49] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:23:49] local.DEBUG: return  
+[2018-11-22 16:23:49] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:23:49] local.DEBUG: return  
+[2018-11-22 16:26:17] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:26:17] local.DEBUG: return  
+[2018-11-22 16:26:17] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:26:17] local.DEBUG: return  
+[2018-11-22 16:26:17] local.DEBUG: 00000000000  
+[2018-11-22 16:26:18] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:26:18] local.DEBUG: return  
+[2018-11-22 16:26:54] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:26:54] local.DEBUG: return  
+[2018-11-22 16:26:55] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:26:55] local.DEBUG: return  
+[2018-11-22 16:26:55] local.DEBUG: 00000000000  
+[2018-11-22 16:26:56] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:26:56] local.DEBUG: return  
+[2018-11-22 16:32:33] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:32:33] local.DEBUG: return  
+[2018-11-22 16:32:33] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:32:33] local.DEBUG: return  
+[2018-11-22 16:32:34] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"invalid uri","property":"/footer/contents/1/action/uri"},{"message":"invalid uri scheme","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:32:34] local.DEBUG: return  
+[2018-11-22 16:33:04] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:33:04] local.DEBUG: return  
+[2018-11-22 16:33:05] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:33:05] local.DEBUG: return  
+[2018-11-22 16:33:05] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"invalid uri","property":"/footer/contents/1/action/uri"},{"message":"invalid uri scheme","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:33:05] local.DEBUG: return  
+[2018-11-22 16:34:11] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:34:11] local.DEBUG: return  
+[2018-11-22 16:34:11] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:34:11] local.DEBUG: return  
+[2018-11-22 16:34:12] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:34:12] local.DEBUG: return  
+[2018-11-22 16:35:02] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:35:02] local.DEBUG: return  
+[2018-11-22 16:35:03] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:35:03] local.DEBUG: return  
+[2018-11-22 16:35:04] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:35:04] local.DEBUG: return  
+[2018-11-22 16:36:16] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:36:16] local.DEBUG: return  
+[2018-11-22 16:36:17] local.DEBUG: Reply After eventFollow =>{}  
+[2018-11-22 16:36:17] local.DEBUG: return  
+[2018-11-22 16:36:17] local.DEBUG:   
+[2018-11-22 16:36:18] local.DEBUG: Reply After eventFollow =>{"message":"A message (messages[0]) in the request body is invalid","details":[{"message":"must be specified","property":"/footer/contents/1/action/uri"}]}  
+[2018-11-22 16:36:18] local.DEBUG: return  

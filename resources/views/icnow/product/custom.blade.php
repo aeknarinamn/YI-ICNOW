@@ -252,7 +252,7 @@
             var msgError = ""; 
             var totalPrice = $('#total_price').val();
             var priceMin = $('#price_min').val();
-            if(parseInt(totalPrice) <= parseInt(priceMin)){
+            if(parseInt(totalPrice) < parseInt(priceMin)){
                 msgError += "<p>ท่านเลือกซื้อสินค้าราคาต่ำกว่าเกณฑ์ที่ตั้งไว้</p>";
                 $isCheck = 0;
             }

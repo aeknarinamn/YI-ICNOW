@@ -1,0 +1,161 @@
+[2018-09-19 07:30:13] local.DEBUG: []  
+[2018-09-19 07:30:13] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 07:30:13] local.DEBUG: return  
+[2018-09-19 07:31:50] local.DEBUG: []  
+[2018-09-19 07:31:50] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 07:31:50] local.DEBUG: return  
+[2018-09-19 07:33:28] local.DEBUG: {"code":"1151","name":"473194_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e48\u0e32\u0e07\u0e28\u0e34\u0e25\u0e32","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 07:33:28] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 07:33:28] local.DEBUG: return  
+[2018-09-19 07:37:02] local.DEBUG: []  
+[2018-09-19 07:37:02] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 07:37:02] local.DEBUG: return  
+[2018-09-19 16:53:20] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Class 'YellowProject\Http\Controllers\API\v1\ICNOW\Mini\Shop' not found in /var/www/html/Dev/ICNOW-DEV/app/Http/Controllers/API/v1/ICNOW/Mini/MiniController.php:183
+Stack trace:
+#0 [internal function]: YellowProject\Http\Controllers\API\v1\ICNOW\Mini\MiniController->importData(Object(Illuminate\Http\Request))
+#1 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(55): call_user_func_array(Array, Array)
+#2 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(44): Illuminate\Routing\Controller->callAction('importData', Array)
+#3 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(203): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(YellowProject\Http\Controllers\API\v1\ICNOW\Mini\MiniController), 'importData')
+#4 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(160): Illuminate\Routing\Route->runController()
+#5 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(574): Illuminate\Routing\Route->run()
+#6 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#7 /var/www/html/Dev/ICNOW-DEV/vendor/barryvdh/laravel-cors/src/HandleCors.php(34): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Barryvdh\Cors\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#9 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#10 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#11 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(49): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#14 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Routing\Middleware\ThrottleRequests->handle(Object(Illuminate\Http\Request), Object(Closure), '60', '1')
+#15 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#16 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#17 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(576): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#18 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(535): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#19 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(513): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#20 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#21 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#22 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#23 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#25 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#26 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#29 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#30 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#31 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(46): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#32 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#35 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#36 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#37 /var/www/html/Dev/ICNOW-DEV/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#38 {main}  
+[2018-09-19 17:11:54] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Parse error: syntax error, unexpected ')' in /var/www/html/Dev/ICNOW-DEV/app/Http/Controllers/DashboardController.php:34
+Stack trace:
+#0 /var/www/html/Dev/ICNOW-DEV/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/var/www/html/D...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('YellowProject\\H...')
+#2 [internal function]: spl_autoload_call('YellowProject\\H...')
+#3 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Container/Container.php(729): ReflectionClass->__construct('YellowProject\\H...')
+#4 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Container/Container.php(608): Illuminate\Container\Container->build('YellowProject\\H...')
+#5 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Container/Container.php(575): Illuminate\Container\Container->resolve('YellowProject\\H...')
+#6 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(728): Illuminate\Container\Container->make('YellowProject\\H...')
+#7 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(217): Illuminate\Foundation\Application->make('YellowProject\\H...')
+#8 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(747): Illuminate\Routing\Route->getController()
+#9 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(708): Illuminate\Routing\Route->controllerMiddleware()
+#10 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(587): Illuminate\Routing\Route->gatherMiddleware()
+#11 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(567): Illuminate\Routing\Router->gatherRouteMiddleware(Object(Illuminate\Routing\Route))
+#12 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(535): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#13 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(513): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#14 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#15 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#16 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#17 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#20 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#23 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#25 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(46): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#26 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#29 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#30 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#31 /var/www/html/Dev/ICNOW-DEV/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#32 {main}  
+[2018-09-19 17:14:22] local.DEBUG: []  
+[2018-09-19 17:14:22] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 17:14:22] local.DEBUG: return  
+[2018-09-19 18:30:15] local.DEBUG: Lat => 13.342307Long => 100.99818240000002  
+[2018-09-19 18:30:19] local.DEBUG: {"code":"1150","name":"473193_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e21\u0e15\u0e30\u0e19\u0e04\u0e23\u0e2a\u0e32\u0e21\u0e25\u0e49\u0e2d","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 18:30:19] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 18:30:19] local.DEBUG: return  
+[2018-09-19 18:33:05] local.DEBUG: Lat => 12.9235557Long => 100.88245510000002  
+[2018-09-19 18:33:07] local.DEBUG: []  
+[2018-09-19 18:33:07] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 18:33:07] local.DEBUG: return  
+[2018-09-19 21:08:48] local.ERROR: ErrorException: Undefined variable: customerShippingAddress in /var/www/html/Dev/ICNOW-DEV/app/Http/Controllers/ICNOW/View/CustomerOrderController.php:24
+Stack trace:
+#0 /var/www/html/Dev/ICNOW-DEV/app/Http/Controllers/ICNOW/View/CustomerOrderController.php(24): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/var/www/html/D...', 24, Array)
+#1 [internal function]: YellowProject\Http\Controllers\ICNOW\View\CustomerOrderController->submitOrder(Object(Illuminate\Http\Request))
+#2 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(55): call_user_func_array(Array, Array)
+#3 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(44): Illuminate\Routing\Controller->callAction('submitOrder', Array)
+#4 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(203): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(YellowProject\Http\Controllers\ICNOW\View\CustomerOrderController), 'submitOrder')
+#5 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Route.php(160): Illuminate\Routing\Route->runController()
+#6 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(574): Illuminate\Routing\Route->run()
+#7 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(41): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#9 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#12 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#13 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#14 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#15 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#18 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#19 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(59): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#21 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#24 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(576): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#25 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(535): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#26 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Router.php(513): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#27 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#28 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#29 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#30 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#33 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#35 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#36 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(46): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#39 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\Routing\Pipeline->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#42 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#43 /var/www/html/Dev/ICNOW-DEV/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#44 /var/www/html/Dev/ICNOW-DEV/public/index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#45 {main}  
+[2018-09-19 21:09:15] local.DEBUG: Lat => Long =>   
+[2018-09-19 21:09:15] local.DEBUG:   
+[2018-09-19 21:12:01] local.DEBUG: Lat => Long =>   
+[2018-09-19 21:12:01] local.DEBUG:   
+[2018-09-19 21:12:17] local.DEBUG: Lat => 13.342307Long => 100.99818240000002  
+[2018-09-19 21:12:20] local.DEBUG: {"code":"1150","name":"473193_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e21\u0e15\u0e30\u0e19\u0e04\u0e23\u0e2a\u0e32\u0e21\u0e25\u0e49\u0e2d","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 21:19:00] local.DEBUG: Lat => 13.342307Long => 100.99818240000002  
+[2018-09-19 21:19:04] local.DEBUG: {"code":"1150","name":"473193_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e21\u0e15\u0e30\u0e19\u0e04\u0e23\u0e2a\u0e32\u0e21\u0e25\u0e49\u0e2d","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 21:20:17] local.DEBUG: Lat => 13.342307Long => 100.99818240000002  
+[2018-09-19 21:20:20] local.DEBUG: {"code":"1150","name":"473193_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e21\u0e15\u0e30\u0e19\u0e04\u0e23\u0e2a\u0e32\u0e21\u0e25\u0e49\u0e2d","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 21:21:24] local.DEBUG: Lat => 13.342307Long => 100.99818240000002  
+[2018-09-19 21:21:27] local.DEBUG: {"code":"1150","name":"473193_\u0e21\u0e34\u0e19\u0e34\u0e2d\u0e21\u0e15\u0e30\u0e19\u0e04\u0e23\u0e2a\u0e32\u0e21\u0e25\u0e49\u0e2d","dt_code":"50000456","dt_location":"CHONBURI"}  
+[2018-09-19 21:21:27] local.DEBUG: Reply After eventFollow =>{}  
+[2018-09-19 21:21:27] local.DEBUG: return  
