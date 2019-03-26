@@ -80,7 +80,6 @@ class CoreLineFunction extends Model
     $datas['shipping_address']['latitude'] = $customerShippingAddress->latitude;
     $datas['shipping_address']['longtitude'] = $customerShippingAddress->longtitude;
     foreach ($shoppingCartItems as $key => $shoppingCartItem) {
-      $refMasterKey = $key;
       $productImages = ProductImages::where('icnow_product_id',$shoppingCartItem->product_id)->first();
       $datas['shopping_carts'][$key]['product_name'] = $shoppingCartItem->product_name;
       $datas['shopping_carts'][$key]['section_id'] = $shoppingCartItem->section_id;
@@ -115,8 +114,7 @@ class CoreLineFunction extends Model
             $allQuantityCustom = $allQuantityCustom + $shoppingCartItemDetailCustomItem->item_value;
           }
         }
-        $datas['shopping_carts'][$refMasterKey]['quantity']  = $allQuantityCustom;
-        // $datas['all_quantity'] = $allQuantityCustom;
+        $datas['all_quantity'] = $allQuantityCustom;
       }else{
         $shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
         $datas['shopping_carts'][$key]['details']['group_items'] = [];
@@ -142,56 +140,32 @@ class CoreLineFunction extends Model
   {
     $type = 1;
     $count = 0;
-    $queryDataMains = self::getQueryDatas($orderCustomer);
-    $messages[$count]  = CoreLineFunction::setHeader($queryDataMains,$type);
-    $message = collect($messages);
-    self::pushMessage($lineUserProfile->mid,$message);
     $section = 1;
     $queryDatas = self::getQueryDatas($orderCustomer,$section);
     if(count($queryDatas['shopping_carts']) > 0){
-      foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-        $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-        $datasMain['shopping_carts'][0] = $shoppingCart;
-        $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-        $message = collect($messages);
-        self::pushMessage($lineUserProfile->mid,$message);
-      }
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
     }
     $section = 2;
     $queryDatas = self::getQueryDatas($orderCustomer,$section);
     if(count($queryDatas['shopping_carts']) > 0){
-      foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-        $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-        $datasMain['shopping_carts'][0] = $shoppingCart;
-        $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-        $message = collect($messages);
-        self::pushMessage($lineUserProfile->mid,$message);
-      }
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
     }
     $section = 3;
     $queryDatas = self::getQueryDatas($orderCustomer,$section);
     if(count($queryDatas['shopping_carts']) > 0){
-      foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-        $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-        $datasMain['shopping_carts'][0] = $shoppingCart;
-        $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-        $message = collect($messages);
-        self::pushMessage($lineUserProfile->mid,$message);
-      }
+      $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+      $count++;
     }
-    $messages[$count]  = CoreLineFunction::setFooter($queryDataMains,$type);
-    $message = collect($messages);
-    self::pushMessage($lineUserProfile->mid,$message);
     /*-------------------------comment 2019-03-11----------------------------------*/
     // $messages[1]  = CoreLineFunction::setBody($queryDatas,$type);
     // $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
     /*-------------------------comment 2019-03-11----------------------------------*/
-
-    // $message = collect($messages);
-    // self::pushMessage($lineUserProfile->mid,$message);
-
-    self::pushMessageToMiniOrder($orderCustomer);
-    self::pushMessageToAdminOrder($orderCustomer);
+    $message = collect($messages);
+    self::pushMessage($lineUserProfile->mid,$message);
+    // self::pushMessageToMiniOrder($orderCustomer);
+    // self::pushMessageToAdminOrder($orderCustomer);
   }
 
   public static function pushMessageToMiniOrder($orderCustomer)
@@ -201,56 +175,30 @@ class CoreLineFunction extends Model
     $miniUser = MiniUser::where('dt_code',$orderCustomer->dt_code)->first();
     if($miniUser){
       $lineUserProfile = LineUserProfile::find($miniUser->line_user_id);
-      $queryDataMains = self::getQueryDatas($orderCustomer);
-      $messages[$count]  = CoreLineFunction::setHeader($queryDataMains,$type);
-      $message = collect($messages);
-      if($lineUserProfile){
-        self::pushMessage($lineUserProfile->mid,$message);
-      }
       $section = 1;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
       $section = 2;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
       $section = 3;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
-      $messages[$count]  = CoreLineFunction::setFooter($queryDataMains,$type);
+      // $messages[1]  = CoreLineFunction::setBody($queryDatas,$type);
+      // $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
       $message = collect($messages);
       if($lineUserProfile){
         self::pushMessage($lineUserProfile->mid,$message);
       }
-      // $messages[1]  = CoreLineFunction::setBody($queryDatas,$type);
-      // $messages[2]  = CoreLineFunction::setFooter($queryDatas,$type);
-      // $message = collect($messages);
-      // if($lineUserProfile){
-      //   self::pushMessage($lineUserProfile->mid,$message);
-      // }
     }
   }
 
@@ -261,55 +209,29 @@ class CoreLineFunction extends Model
     $adminUsers = AdminUser::where('is_user',1)->get();
     foreach ($adminUsers as $key => $adminUser) {
       $lineUserProfile = LineUserProfile::find($adminUser->line_user_id);
-      $queryDataMains = self::getQueryDatas($orderCustomer);
-      $messages[$count]  = CoreLineFunction::setHeader($queryDataMains,$type);
-      $message = collect($messages);
-      if($lineUserProfile){
-        self::pushMessage($lineUserProfile->mid,$message);
-      }
       $section = 1;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
       $section = 2;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
       $section = 3;
       $queryDatas = self::getQueryDatas($orderCustomer,$section);
       if(count($queryDatas['shopping_carts']) > 0){
-        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
-          $datasMain['order_no'] = $queryDatas['order_detail']['order_no'];
-          $datasMain['shopping_carts'][0] = $shoppingCart;
-          $messages[$count]  = CoreLineFunction::setBody($datasMain,$type);
-          $message = collect($messages);
-          self::pushMessage($lineUserProfile->mid,$message);
-        }
-      }
-      $messages[$count]  = CoreLineFunction::setFooter($queryDataMains,$type);
-      $message = collect($messages);
-      if($lineUserProfile){
-        self::pushMessage($lineUserProfile->mid,$message);
+        $messages[$count]  = CoreLineFunction::setHeader($queryDatas,$type);
+        $count++;
       }
       // $messages[1]  = CoreLineFunction::setHeaderMini($queryDatas,$type);
       // $messages[2]  = CoreLineFunction::setBody($queryDatas,$type);
       // $messages[3]  = CoreLineFunction::setFooter($queryDatas,$type);
-      // $message = collect($messages);
-      // self::pushMessage($lineUserProfile->mid,$message);
+      $message = collect($messages);
+      self::pushMessage($lineUserProfile->mid,$message);
     }
   }
 
@@ -512,6 +434,49 @@ class CoreLineFunction extends Model
         "type"=>"separator",
         "margin"=>"xl"
       ];
+      // $countSet++;
+      // $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+      //   "type"=>"box",
+      //   "layout"=>"horizontal",
+      //   "margin"=>"xl",
+      //   "contents"=>[
+      //     [
+      //       "type"=>"text",
+      //       "text"=>"Wall's Code:",
+      //       "size"=>"sm",
+      //       "color"=>"#555555",
+      //       "flex"=>0
+      //     ],
+      //     [
+      //       "type"=>"text",
+      //       "text"=>$queryDatas['mini']['walls_code'],
+      //       "size"=>"sm",
+      //       "color"=>"#555555",
+      //       "align"=>"end"
+      //     ]
+      //   ]
+      // ];
+      // $countSet++;
+      // $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+      //   "type"=>"box",
+      //   "layout"=>"horizontal",
+      //   "contents"=>[
+      //     [
+      //       "type"=>"text",
+      //       "text"=>"Wall's Name:",
+      //       "size"=>"sm",
+      //       "color"=>"#555555",
+      //       "flex"=>0
+      //     ],
+      //     [
+      //       "type"=>"text",
+      //       "text"=>$queryDatas['mini']['walls_name'],
+      //       "size"=>"sm",
+      //       "color"=>"#555555",
+      //       "align"=>"end"
+      //     ]
+      //   ]
+      // ];
       $count++;
     }
     // $count = 3;
@@ -687,6 +652,567 @@ class CoreLineFunction extends Model
               ]
             ]
       ];
+      $count++;
+      $datas['contents']['body']['contents'][$count] = [
+        "type"=>"separator",
+        "margin"=>"xl"
+      ];
+      if($type != 5 && $type != 7 && $type != 8){
+        $count++;
+        $datas['contents']['body']['contents'][$count] = [
+            "type"=>"box",
+            "layout"=>"vertical",
+            "margin"=>"xl",
+            "spacing"=>"sm"
+        ];
+        $countSet = 0;
+        $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+            "type"=>"box",
+            "layout"=>"horizontal",
+            "contents"=> [
+                [
+                  "type"=>"text",
+                  "text"=>"รายละเอียด สินค้า",
+                  "size"=>"sm",
+                  "color"=>"#ee322a",
+                  "weight"=>"bold",
+                  "flex"=>0
+                ]
+            ]
+          ];
+        $count++;
+        foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
+          if($shoppingCart['section_id'] == 1){
+            $datas['contents']['body']['contents'][$count] = [
+              "type"=>"box",
+              "layout"=>"vertical",
+              "margin"=>"xl",
+              "spacing"=>"sm"
+            ];
+            $countSet = 0;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ชื่อสินค้า:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>$shoppingCart['product_name'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"เน้นสินค้าจำพวก:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>implode(' / ', $shoppingCart['details']['product_focus']),
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "margin"=>"xl",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"จำนวน:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=> (string)$shoppingCart['quantity'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ราคา:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['total']." บาท",
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"separator",
+              "margin"=>"xl"
+            ];
+          }else if($shoppingCart['section_id'] == 3){
+            $datas['contents']['body']['contents'][$count] = [
+              "type"=>"box",
+              "layout"=>"vertical",
+              "spacing"=>"sm",
+              "margin"=>"xl"
+            ];
+            $countSet = 0;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ชื่อสินค้า:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>$shoppingCart['product_name'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            foreach ($shoppingCart['details']['group_items'] as $key => $groupItems) {
+              $countSet++;
+              $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                "type"=>"box",
+                "layout"=>"horizontal",
+                "contents"=>[
+                  [
+                    "type"=>"text",
+                    "text"=>$groupItems['group_name'].":",
+                    "size"=>"sm",
+                    "color"=>"#555555",
+                    "flex"=>0
+                  ],
+                  [
+                    "type"=>"text",
+                    "text"=>"-",
+                    "size"=>"sm",
+                    "color"=>"#111111",
+                    "align"=>"end"
+                  ]
+                ]
+              ];
+              foreach ($groupItems['items'] as $key => $item) {
+                $countSet++;
+                $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                  "type"=>"box",
+                  "layout"=>"horizontal",
+                  "contents"=>[
+                    [
+                      "type"=>"text",
+                      "text"=>"-- ".$item['item_name'].":",
+                      "size"=>"sm",
+                      "color"=>"#555555",
+                      "flex"=>0
+                    ],
+                    [
+                      "type"=>"text",
+                      "text"=>$item['item_value']." ".$groupItems['unit']." ".$item['price']*$item['item_value']. " บาท",
+                      "size"=>"sm",
+                      "color"=>"#111111",
+                      "align"=>"end"
+                    ]
+                  ]
+                ];
+              }
+            }
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "margin"=>"xl",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"จำนวน:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['quantity'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ราคา:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['total']." บาท",
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"separator",
+              "margin"=>"xl"
+            ];
+          }else{
+            $datas['contents']['body']['contents'][$count] = [
+              "type"=>"box",
+              "layout"=>"vertical",
+              "spacing"=>"sm",
+              "margin"=>"xl"
+            ];
+            $countSet = 0;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ชื่อสินค้า:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>$shoppingCart['product_name'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            foreach ($shoppingCart['details']['group_items'] as $key => $groupItems) {
+              $countSet++;
+              $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                "type"=>"box",
+                "layout"=>"horizontal",
+                "contents"=>[
+                  [
+                    "type"=>"text",
+                    "text"=>$groupItems['group_name']."(".$groupItems['choose_item']."/".$groupItems['max_item']."):",
+                    "size"=>"sm",
+                    "color"=>"#555555",
+                    "flex"=>0
+                  ],
+                  [
+                    "type"=>"text",
+                    "text"=>"-",
+                    "size"=>"sm",
+                    "color"=>"#111111",
+                    "align"=>"end"
+                  ]
+                ]
+              ];
+              foreach ($groupItems['items'] as $key => $item) {
+                $countSet++;
+                $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+                  "type"=>"box",
+                  "layout"=>"horizontal",
+                  "contents"=>[
+                    [
+                      "type"=>"text",
+                      "text"=>"-- ".$item['item_name'].":",
+                      "size"=>"sm",
+                      "color"=>"#555555",
+                      "flex"=>0
+                    ],
+                    [
+                      "type"=>"text",
+                      "text"=>$item['item_value']." ".$groupItems['unit'],
+                      "size"=>"sm",
+                      "color"=>"#111111",
+                      "align"=>"end"
+                    ]
+                  ]
+                ];
+              }
+            }
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "margin"=>"xl",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"จำนวน:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['quantity'],
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"box",
+              "layout"=>"horizontal",
+              "contents"=>[
+                [
+                  "type"=>"text",
+                  "text"=>"ราคา:",
+                  "size"=>"sm",
+                  "color"=>"#555555",
+                  "flex"=>0
+                ],
+                [
+                  "type"=>"text",
+                  "text"=>(string)$shoppingCart['total']." บาท",
+                  "size"=>"sm",
+                  "color"=>"#111111",
+                  "align"=>"end"
+                ]
+              ]
+            ];
+            $countSet++;
+            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+              "type"=>"separator",
+              "margin"=>"xl"
+            ];
+          }
+          $count++;
+        }
+        $datas['contents']['body']['contents'][$count] = [
+            "type"=>"box",
+            "layout"=>"vertical",
+            "margin"=>"xl",
+            "spacing"=>"sm"
+        ];
+        $countSet = 0;
+        $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+          "type"=>"box",
+          "layout"=>"horizontal",
+          "contents"=> [
+              [
+                "type"=>"text",
+                "text"=>"ยอดรวมทั้งหมด",
+                "size"=>"sm",
+                "color"=>"#ee322a",
+                "weight"=>"bold",
+                "flex"=>0
+              ]
+          ]
+        ];
+        $countSet++;
+        $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+          "type"=>"box",
+          "layout"=>"horizontal",
+          "margin"=>"xl",
+          "contents"=>[
+            [
+              "type"=>"text",
+              "text"=>"จำนวนรวมทั้งหมด:",
+              "size"=>"sm",
+              "color"=>"#555555",
+              "flex"=>0
+            ],
+            [
+              "type"=>"text",
+              "text"=>(string)$queryDatas['all_quantity'],
+              "size"=>"sm",
+              "color"=>"#111111",
+              "align"=>"end"
+            ]
+          ]
+        ];
+        $countSet++;
+        $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+          "type"=>"box",
+          "layout"=>"horizontal",
+          "contents"=>[
+            [
+              "type"=>"text",
+              "text"=>"ราคารวม:",
+              "size"=>"sm",
+              "color"=>"#555555",
+              "flex"=>0
+            ],
+            [
+              "type"=>"text",
+              "text"=>(string)number_format($queryDatas['grand_total'],2)." บาท",
+              "size"=>"sm",
+              "color"=>"#111111",
+              "align"=>"end"
+            ]
+          ]
+        ];
+        // $countSet++;
+        // $count++;
+        // $datas['contents']['body']['contents'][$count] = [
+        //   "type"=>"separator",
+        //   "margin"=>"xl"
+        // ];
+        $countSet++;
+      }
+      if($type == 1){
+        $datas['contents']['body']['contents'][$count]['contents'][$countSet] =  [
+          "type"=>"box",
+          "layout"=>"vertical",
+          "margin"=>"xxl",
+          "contents"=>[
+            [
+              "type"=>"text",
+              "text"=>"คุณจะได้รับการติดต่อกลับภายใน 1 ชม",
+              "wrap"=>true,
+              "margin"=>"md",
+              "size"=>"sm"
+            ]
+          ]
+        ];
+      }else if($type == 2){
+        $datas['contents']['footer'] = [
+          "type"=>"box",
+          "layout"=>"vertical",
+          "contents"=>[
+            [
+              "type"=>"spacer",
+              "size"=>"sm"
+            ],
+            [
+              "type"=>"text",
+              "text"=>"กรุณาโทรหาลูกค้า ภายใน 15 นาที",
+              "wrap"=>true,
+              "margin"=>"md",
+              "size"=>"sm"
+            ],
+            [
+              "type"=>"separator",
+              "margin"=>"xl"
+            ],
+            [
+              "type"=>"button",
+              "style"=>"primary",
+              "height"=>"sm",
+              "color"=>"#ee322a",
+              "margin"=>"xl",
+              "action"=>[
+                "type"=>"uri",
+                "label"=>"ยืนยันคำสั่งซื้อ",
+                "uri"=>\URL::to('/')."/mini-page/bp/".$queryDatas['order_detail']['order_no']
+              ]
+            ]
+          ]
+        ];
+      }else if($type == 4){
+        // dd($queryDatas);
+        if($queryDatas['mini']['mini_tel'] != ''){
+          $datas['contents']['footer'] = [
+            "type"=>"box",
+            "layout"=>"vertical",
+            "contents"=>[
+              [
+                "type"=>"spacer",
+                "size"=>"sm"
+              ],
+              [
+                "type"=>"button",
+                "style"=>"primary",
+                "height"=>"sm",
+                "color"=>"#ee322a",
+                "margin"=>"xl",
+                "action"=>[
+                  "type"=>"uri",
+                  "label"=>"โทรหา MINI",
+                  "uri"=> 'tel:'.$queryDatas['mini']['mini_tel']
+                ]
+              ]
+            ]
+          ];
+        }
+      }else if($type == 6){
+        // $count++;
+        // $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
+        //   "type"=>"box",
+        //   "layout"=>"vertical",
+        //   "margin"=>"xxl",
+        //   "contents"=>[
+        //     [
+        //     "type"=>"text",
+        //     "text"=>"เหตุผล:".$queryDatas['order_detail']['cancle_case'],
+        //     "wrap"=>true,
+        //     "margin"=>"md",
+        //     "size"=>"sm"
+        //     ]
+        //   ]
+        // ];
+      }else if($type == 8){
+        // $count++;
+        // $datas['contents']['body']['contents'][$count] = [
+        //     "type"=>"box",
+        //     "layout"=>"vertical",
+        //     "margin"=>"xl",
+        //     "spacing"=>"sm"
+        // ];
+        // $datas['contents']['body']['contents'][$count]['contents'][0] = [
+        //   "type"=>"box",
+        //   "layout"=>"vertical",
+        //   "margin"=>"xxl",
+        //   "contents"=>[
+        //     [
+        //     "type"=>"text",
+        //     "text"=>"คำสั่งซื้อถูกยกเลิกโดยระบบ เนื่องจาก MINI ในพื้นที่ไม่ได้ทำการยืนยันคำสั่งซื้อภายใน 2 ชั่วโมง",
+        //     "wrap"=>true,
+        //     "margin"=>"md",
+        //     "size"=>"sm"
+        //     ]
+        //   ]
+        // ];
+      }
+
 
     return $datas;
   }
@@ -869,7 +1395,7 @@ class CoreLineFunction extends Model
       ];
 
       return $datas;
-  }
+  }  
 
   public static function setBody($queryDatas,$type)
   {
@@ -912,33 +1438,6 @@ class CoreLineFunction extends Model
       "margin"=>"xl"
     ];
     $count = 2;
-    $datas['contents']['body']['contents'][$count] = [
-      "type"=>"box",
-      "layout"=>"vertical",
-      "margin"=>"xl",
-      "spacing"=>"sm"
-    ];
-    $datas['contents']['body']['contents'][$count]['contents'][0] = [
-      "type"=>"box",
-      "layout"=>"horizontal",
-      "contents"=>[
-        [
-          "type"=>"text",
-          "text"=>"เลขที่คำสั่งซื้อ:",
-          "size"=>"sm",
-          "color"=>"#555555",
-          "flex"=>0
-        ],
-        [
-          "type"=>"text",
-          "text"=>$queryDatas['order_no'],
-          "size"=>"sm",
-          "color"=>"#111111",
-          "align"=>"end"
-        ]
-      ]
-    ];
-    $count++;
     foreach ($queryDatas['shopping_carts'] as $key => $shoppingCart) {
       if($shoppingCart['section_id'] == 1){
         $datas['contents']['body']['contents'][$count] = [
@@ -1073,129 +1572,7 @@ class CoreLineFunction extends Model
           "type"=>"separator",
           "margin"=>"xl"
         ];
-      }else if($shoppingCart['section_id'] == 3){
-          $datas['contents']['body']['contents'][$count] = [
-            "type"=>"box",
-            "layout"=>"vertical",
-            "spacing"=>"sm",
-            "margin"=>"xl"
-          ];
-          $countSet = 0;
-          $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-            "type"=>"box",
-            "layout"=>"horizontal",
-            "contents"=>[
-              [
-                "type"=>"text",
-                "text"=>"ชื่อสินค้า:",
-                "size"=>"sm",
-                "color"=>"#555555",
-                "flex"=>0
-              ],
-              [
-                "type"=>"text",
-                "text"=>$shoppingCart['product_name'],
-                "size"=>"sm",
-                "color"=>"#111111",
-                "align"=>"end"
-              ]
-            ]
-          ];
-          foreach ($shoppingCart['details']['group_items'] as $key => $groupItems) {
-            $countSet++;
-            $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-              "type"=>"box",
-              "layout"=>"horizontal",
-              "contents"=>[
-                [
-                  "type"=>"text",
-                  "text"=>$groupItems['group_name'].":",
-                  "size"=>"sm",
-                  "color"=>"#555555",
-                  "flex"=>0
-                ],
-                [
-                  "type"=>"text",
-                  "text"=>"-",
-                  "size"=>"sm",
-                  "color"=>"#111111",
-                  "align"=>"end"
-                ]
-              ]
-            ];
-            foreach ($groupItems['items'] as $key => $item) {
-              $countSet++;
-              $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-                "type"=>"box",
-                "layout"=>"horizontal",
-                "contents"=>[
-                  [
-                    "type"=>"text",
-                    "text"=>"-- ".$item['item_name'].":",
-                    "size"=>"sm",
-                    "color"=>"#555555",
-                    "flex"=>0
-                  ],
-                  [
-                    "type"=>"text",
-                    "text"=>$item['item_value']." ".$groupItems['unit']." ".$item['price']*$item['item_value']. " บาท",
-                    "size"=>"sm",
-                    "color"=>"#111111",
-                    "align"=>"end"
-                  ]
-                ]
-              ];
-            }
-          }
-          $countSet++;
-          $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-            "type"=>"box",
-            "layout"=>"horizontal",
-            "margin"=>"xl",
-            "contents"=>[
-              [
-                "type"=>"text",
-                "text"=>"จำนวน:",
-                "size"=>"sm",
-                "color"=>"#555555",
-                "flex"=>0
-              ],
-              [
-                "type"=>"text",
-                "text"=>(string)$shoppingCart['quantity'],
-                "size"=>"sm",
-                "color"=>"#111111",
-                "align"=>"end"
-              ]
-            ]
-          ];
-          $countSet++;
-          $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-            "type"=>"box",
-            "layout"=>"horizontal",
-            "contents"=>[
-              [
-                "type"=>"text",
-                "text"=>"ราคา:",
-                "size"=>"sm",
-                "color"=>"#555555",
-                "flex"=>0
-              ],
-              [
-                "type"=>"text",
-                "text"=>(string)$shoppingCart['total']." บาท",
-                "size"=>"sm",
-                "color"=>"#111111",
-                "align"=>"end"
-              ]
-            ]
-          ];
-          $countSet++;
-          $datas['contents']['body']['contents'][$count]['contents'][$countSet] = [
-            "type"=>"separator",
-            "margin"=>"xl"
-          ];
-        }else{
+      }else{
         $datas['contents']['body']['contents'][$count] = [
           "type"=>"box",
           "layout"=>"vertical",
@@ -1369,28 +1746,6 @@ class CoreLineFunction extends Model
     $datas['contents']['body']['contents'][2] = [
       "type"=>"box",
       "layout"=>"horizontal",
-      "margin"=>"xxl",
-      "contents"=>[
-        [
-          "type"=>"text",
-          "text"=>"เลขที่คำสั่งซื้อ:",
-          "size"=>"sm",
-          "color"=>"#555555",
-          "flex"=>0
-        ],
-        [
-          "type"=>"text",
-          "text"=>$queryDatas['order_detail']['order_no'],
-          "size"=>"sm",
-          "color"=>"#111111",
-          "align"=>"end"
-        ]
-      ]
-    ];
-
-    $datas['contents']['body']['contents'][3] = [
-      "type"=>"box",
-      "layout"=>"horizontal",
       "margin"=>"xl",
       "contents"=>[
         [
@@ -1410,13 +1765,13 @@ class CoreLineFunction extends Model
       ]
     ];
 
-    $datas['contents']['body']['contents'][4] = [
+    $datas['contents']['body']['contents'][3] = [
       "type"=>"box",
       "layout"=>"vertical",
       "spacing"=>"sm"
     ];
 
-    $datas['contents']['body']['contents'][4]['contents'][] = [
+    $datas['contents']['body']['contents'][3]['contents'][] = [
       "type"=>"box",
       "layout"=>"horizontal",
       "contents"=>[
@@ -1437,7 +1792,7 @@ class CoreLineFunction extends Model
       ]
     ];
 
-    $datas['contents']['body']['contents'][4]['contents'][] = [
+    $datas['contents']['body']['contents'][3]['contents'][] = [
       "type"=>"box",
       "layout"=>"horizontal",
       "contents"=>[
@@ -1458,7 +1813,7 @@ class CoreLineFunction extends Model
       ]
     ];
 
-    $datas['contents']['body']['contents'][4]['contents'][] = [
+    $datas['contents']['body']['contents'][3]['contents'][] = [
       "type"=>"box",
       "layout"=>"horizontal",
       "contents"=>[
@@ -1479,7 +1834,7 @@ class CoreLineFunction extends Model
       ]
     ];
 
-    $datas['contents']['body']['contents'][4]['contents'][] = [
+    $datas['contents']['body']['contents'][3]['contents'][] = [
       "type"=>"box",
       "layout"=>"horizontal",
       "margin"=>"xl",
@@ -1507,7 +1862,7 @@ class CoreLineFunction extends Model
     // ];
 
     if($type == 1){
-      $datas['contents']['body']['contents'][4]['contents'][] =  [
+      $datas['contents']['body']['contents'][3]['contents'][] =  [
         "type"=>"box",
         "layout"=>"vertical",
         "margin"=>"xxl",
@@ -1531,22 +1886,10 @@ class CoreLineFunction extends Model
             "size"=>"sm"
           ],
           [
-            "type"=>"text",
-            "text"=>"กรุณาโทรหาลูกค้า ภายใน 15 นาที",
-            "wrap"=>true,
-            "margin"=>"md",
-            "size"=>"sm"
-          ],
-          [
-            "type"=>"separator",
-            "margin"=>"xl"
-          ],
-          [
             "type"=>"button",
             "style"=>"primary",
             "height"=>"sm",
             "color"=>"#ee322a",
-            "margin"=>"xl",
             "action"=>[
               "type"=>"uri",
               "label"=>"ยืนยันคำสั่งซื้อ",
@@ -1556,7 +1899,7 @@ class CoreLineFunction extends Model
         ]
       ];
     }else if($type == 6){
-      $datas['contents']['body']['contents'][4]['contents'][] = [
+      $datas['contents']['body']['contents'][3]['contents'][] = [
         "type"=>"box",
         "layout"=>"vertical",
         "margin"=>"xxl",
@@ -1570,31 +1913,21 @@ class CoreLineFunction extends Model
           ]
         ]
       ];
-    }else if($type == 4){
-      if($queryDatas['mini']['mini_tel'] != ''){
-        $datas['contents']['footer'] = [
-          "type"=>"box",
-          "layout"=>"vertical",
-          "contents"=>[
-            [
-              "type"=>"spacer",
-              "size"=>"sm"
-            ],
-            [
-              "type"=>"button",
-              "style"=>"primary",
-              "height"=>"sm",
-              "color"=>"#ee322a",
-              "margin"=>"xl",
-              "action"=>[
-                "type"=>"uri",
-                "label"=>"โทรหา MINI",
-                "uri"=> 'tel:'.$queryDatas['mini']['mini_tel']
-              ]
-            ]
+    }else if($type == 8){
+      $datas['contents']['body']['contents'][3]['contents'][] = [
+        "type"=>"box",
+        "layout"=>"vertical",
+        "margin"=>"xxl",
+        "contents"=>[
+          [
+          "type"=>"text",
+          "text"=>"คำสั่งซื้อถูกยกเลิกโดยระบบ เนื่องจาก MINI ในพื้นที่ไม่ได้ทำการยืนยันคำสั่งซื้อภายใน 2 ชั่วโมง",
+          "wrap"=>true,
+          "margin"=>"md",
+          "size"=>"sm"
           ]
-        ];
-      }
+        ]
+      ];
     }
 
 

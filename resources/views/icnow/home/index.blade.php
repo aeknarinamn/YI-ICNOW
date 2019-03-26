@@ -120,7 +120,7 @@
                         <div class="show-product-title-image">
                             <img src="{{$sectionImages->where('icnow_section_id',1)->first()->img_url}}" alt="">
                             <div class="show-product-subtitle">
-                                <img src="/icnow/resources/images/image-product-subtitle.png" alt="">
+                                <!-- <img src="/icnow/resources/images/image-product-subtitle.png" alt=""> -->
                             </div>
                         </div>
                     @endif

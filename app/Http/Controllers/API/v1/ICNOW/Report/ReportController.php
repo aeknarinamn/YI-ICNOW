@@ -60,6 +60,11 @@ class ReportController extends Controller
         ]);
     }
 
+    public function reportEndOfDayExport(Request $request)
+    {
+
+    }
+
     public function reportShoppingBehavior(Request $request)
     {
         $datas['shopping_behavior'] = [];
@@ -124,6 +129,11 @@ class ReportController extends Controller
         ]);
     }
 
+    public function reportShoppingBehaviorExport(Request $request)
+    {
+        
+    }
+
     public function reportReturningVisitor(Request $request)
     {
         $datas['returning_visistor'] = [];
@@ -173,6 +183,11 @@ class ReportController extends Controller
         return response()->json([
             'datas' => $datas,
         ]);
+    }
+
+    public function reportReturningVisitorExport(Request $request)
+    {
+        
     }
 
     public function reportNewVisitor(Request $request)
@@ -255,6 +270,11 @@ class ReportController extends Controller
         ]);
     }
 
+    public function reportProductClickExport(Request $request)
+    {
+        
+    }
+
     public function reportProductPerformance(Request $request)
     {
         $datas['performace']['header'] = [];
@@ -323,6 +343,11 @@ class ReportController extends Controller
         ]);
     }
 
+    public function reportProductPerformanceExport(Request $request)
+    {
+        
+    }
+
     public function reportSummaryOrderExport(Request $request)
     {
         $datas = [];
@@ -363,6 +388,8 @@ class ReportController extends Controller
                     if($shoppingCartItemDetailDiy){
                         $shoppingCartItemDetailDiyItems = $shoppingCartItemDetailDiy->shoppingCartItemDetailDiyItems;
                     }
+                }else if($shoppingCartItem->section_id == 3){
+                    $setType = "Custom";
                 }else{
                     $setType = "Fixed";
                     $countShoppingCartItem = 1;
@@ -418,6 +445,10 @@ class ReportController extends Controller
                     $totalTimeTaken = $orderCustomer->total_time_taken." minutes";
                 }
                 $datas[$count]['Order Status'] = $orderCustomer->status;
+                $datas[$count]['Quality Score'] = $orderCustomer->rating_1;
+                $datas[$count]['Speed Score'] = $orderCustomer->rating_2;
+                $datas[$count]['Manner Score'] = $orderCustomer->rating_3;
+                $datas[$count]['Overall Score'] = $orderCustomer->rating_4;
 
                 $count++;
             }

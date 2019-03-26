@@ -271,7 +271,7 @@ Route::resource('api-folder-campagin', 'API\v1\CampaignFolderController');
 
   Route::get('/test-send-message-nn', function () {
       $lineUserProfile = \YellowProject\LineUserProfile::find(2);
-      $orderCustomer = \YellowProject\ICNOW\OrderCustomer\OrderCustomer::find(24);
+      $orderCustomer = \YellowProject\ICNOW\OrderCustomer\OrderCustomer::find(6);
       \YellowProject\ICNOW\CoreLineFunction\CoreLineFunction::pushMessageToCustomerOrder($lineUserProfile,$orderCustomer);
   });
 

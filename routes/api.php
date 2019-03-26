@@ -332,11 +332,16 @@ Route::group(['middleware' => 'cors'], function() {
 	Route::post('icnow-order-status-update', 'API\v1\ICNOW\OrderCustomer\OrderCustomerController@updateDataOrder');
 
 	Route::post('icnow-report-end-of-day', 'API\v1\ICNOW\Report\ReportController@reportEndOfDay');
+	Route::get('icnow-report-end-of-day-export', 'API\v1\ICNOW\Report\ReportController@reportEndOfDayExport');
 	Route::post('icnow-report-shop-behav', 'API\v1\ICNOW\Report\ReportController@reportShoppingBehavior');
+	Route::get('icnow-report-shop-behav-export', 'API\v1\ICNOW\Report\ReportController@reportShoppingBehaviorExport');
 	Route::post('icnow-report-return-visit', 'API\v1\ICNOW\Report\ReportController@reportReturningVisitor');
+	Route::get('icnow-report-return-visit-export', 'API\v1\ICNOW\Report\ReportController@reportReturningVisitorExport');
 	Route::post('icnow-report-new-visit', 'API\v1\ICNOW\Report\ReportController@reportNewVisitor');
 	Route::post('icnow-report-product-click', 'API\v1\ICNOW\Report\ReportController@reportProductClick');
+	Route::get('icnow-report-product-click-export', 'API\v1\ICNOW\Report\ReportController@reportProductClickExport');
 	Route::post('icnow-report-product-perfor', 'API\v1\ICNOW\Report\ReportController@reportProductPerformance');
+	Route::get('icnow-report-product-perfor-export', 'API\v1\ICNOW\Report\ReportController@reportProductPerformanceExport');
 	Route::get('icnow-report-export-summary-order', 'API\v1\ICNOW\Report\ReportController@reportSummaryOrderExport');
 
 	Route::post('icnow-address-add-to-cookie', 'ICNOW\View\AddressController@storeAddressDataToCookie');

@@ -104,6 +104,7 @@ class MiniController extends Controller
     	$retialPrice = $shoppingCartItems->sum('retial_price');
     	$datas = [];
     	foreach ($shoppingCartItems as $key => $shoppingCartItem) {
+            $masterKey = $key;
     		$productImages = ProductImages::where('icnow_product_id',$shoppingCartItem->product_id)->first();
     		$datas['shopping_carts'][$key]['product_name'] = $shoppingCartItem->product_name;
     		$datas['shopping_carts'][$key]['section_id'] = $shoppingCartItem->section_id;
@@ -117,7 +118,28 @@ class MiniController extends Controller
     			$datas['shopping_carts'][$key]['details']['other_option'] = $shoppingCartItemDetailDiy->other_option;
     			$datas['shopping_carts'][$key]['details']['product_focus'] = $shoppingCartItemDetailDiyItems->pluck('value')->toArray();
     			$datas['shopping_carts'][$key]['details']['comment'] = $shoppingCartItemDetailDiy->comment;
-    		}else{
+    		}else if($shoppingCartItem->section_id == 3){
+                $shoppingCartItemDetailCustoms = $shoppingCartItem->shoppingCartItemDetailCustoms;
+                $datas['shopping_carts'][$key]['details']['group_items'] = [];
+                $allQuantity = 0;
+                foreach ($shoppingCartItemDetailCustoms as $keyPartySet => $shoppingCartItemDetailCustom) {
+                    $shoppingCartItemDetailCustomItems = $shoppingCartItemDetailCustom->shoppingCartItemDetailCustomItems;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailCustom->group_name;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailCustom->choose_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailCustom->max_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['unit'] = $shoppingCartItemDetailCustom->unit;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
+                    $allQuantity = $allQuantity+$shoppingCartItemDetailCustom->choose_item;
+                    foreach ($shoppingCartItemDetailCustomItems as $keyPartySetItem => $shoppingCartItemDetailCustomItem) {
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailCustomItem->item_name;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = $shoppingCartItemDetailCustomItem->price * $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = number_format($datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'],2);
+                    }
+
+                }
+                $datas['shopping_carts'][$masterKey]['quantity'] = $allQuantity;
+            }else{
     			$shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
     			$datas['shopping_carts'][$key]['details']['group_items'] = [];
     			foreach ($shoppingCartItemDetailPartySets as $keyPartySet => $shoppingCartItemDetailPartySet) {
@@ -184,6 +206,7 @@ class MiniController extends Controller
     	$retialPrice = $shoppingCartItems->sum('retial_price');
     	$datas = [];
     	foreach ($shoppingCartItems as $key => $shoppingCartItem) {
+            $masterKey = $key;
     		$productImages = ProductImages::where('icnow_product_id',$shoppingCartItem->product_id)->first();
     		$datas['shopping_carts'][$key]['product_name'] = $shoppingCartItem->product_name;
     		$datas['shopping_carts'][$key]['section_id'] = $shoppingCartItem->section_id;
@@ -197,7 +220,28 @@ class MiniController extends Controller
                 $datas['shopping_carts'][$key]['details']['other_option'] = $shoppingCartItemDetailDiy->other_option;
     			$datas['shopping_carts'][$key]['details']['product_focus'] = $shoppingCartItemDetailDiyItems->pluck('value')->toArray();
     			$datas['shopping_carts'][$key]['details']['comment'] = $shoppingCartItemDetailDiy->comment;
-    		}else{
+    		}else if($shoppingCartItem->section_id == 3){
+                $shoppingCartItemDetailCustoms = $shoppingCartItem->shoppingCartItemDetailCustoms;
+                $datas['shopping_carts'][$key]['details']['group_items'] = [];
+                $allQuantity = 0;
+                foreach ($shoppingCartItemDetailCustoms as $keyPartySet => $shoppingCartItemDetailCustom) {
+                    $shoppingCartItemDetailCustomItems = $shoppingCartItemDetailCustom->shoppingCartItemDetailCustomItems;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailCustom->group_name;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailCustom->choose_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailCustom->max_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['unit'] = $shoppingCartItemDetailCustom->unit;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
+                    $allQuantity = $allQuantity+$shoppingCartItemDetailCustom->choose_item;
+                    foreach ($shoppingCartItemDetailCustomItems as $keyPartySetItem => $shoppingCartItemDetailCustomItem) {
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailCustomItem->item_name;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = $shoppingCartItemDetailCustomItem->price * $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = number_format($datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'],2);
+                    }
+
+                }
+                $datas['shopping_carts'][$masterKey]['quantity'] = $allQuantity;
+            }else{
     			$shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
     			$datas['shopping_carts'][$key]['details']['group_items'] = [];
     			foreach ($shoppingCartItemDetailPartySets as $keyPartySet => $shoppingCartItemDetailPartySet) {
@@ -266,6 +310,7 @@ class MiniController extends Controller
 
     	$datas = [];
     	foreach ($shoppingCartItems as $key => $shoppingCartItem) {
+            $masterKey = $key;
     		$productImages = ProductImages::where('icnow_product_id',$shoppingCartItem->product_id)->first();
     		$datas['shopping_carts'][$key]['product_name'] = $shoppingCartItem->product_name;
     		$datas['shopping_carts'][$key]['section_id'] = $shoppingCartItem->section_id;
@@ -279,7 +324,28 @@ class MiniController extends Controller
                 $datas['shopping_carts'][$key]['details']['other_option'] = $shoppingCartItemDetailDiy->other_option;
     			$datas['shopping_carts'][$key]['details']['product_focus'] = $shoppingCartItemDetailDiyItems->pluck('value')->toArray();
     			$datas['shopping_carts'][$key]['details']['comment'] = $shoppingCartItemDetailDiy->comment;
-    		}else{
+    		}else if($shoppingCartItem->section_id == 3){
+                $shoppingCartItemDetailCustoms = $shoppingCartItem->shoppingCartItemDetailCustoms;
+                $datas['shopping_carts'][$key]['details']['group_items'] = [];
+                $allQuantity = 0;
+                foreach ($shoppingCartItemDetailCustoms as $keyPartySet => $shoppingCartItemDetailCustom) {
+                    $shoppingCartItemDetailCustomItems = $shoppingCartItemDetailCustom->shoppingCartItemDetailCustomItems;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['group_name'] = $shoppingCartItemDetailCustom->group_name;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['choose_item'] = $shoppingCartItemDetailCustom->choose_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['max_item'] = $shoppingCartItemDetailCustom->max_item;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['unit'] = $shoppingCartItemDetailCustom->unit;
+                    $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'] = [];
+                    $allQuantity = $allQuantity+$shoppingCartItemDetailCustom->choose_item;
+                    foreach ($shoppingCartItemDetailCustomItems as $keyPartySetItem => $shoppingCartItemDetailCustomItem) {
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_name'] = $shoppingCartItemDetailCustomItem->item_name;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['item_value'] = $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = $shoppingCartItemDetailCustomItem->price * $shoppingCartItemDetailCustomItem->item_value;
+                        $datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'] = number_format($datas['shopping_carts'][$key]['details']['group_items'][$keyPartySet]['items'][$keyPartySetItem]['price'],2);
+                    }
+
+                }
+                $datas['shopping_carts'][$masterKey]['quantity'] = $allQuantity;
+            }else{
     			$shoppingCartItemDetailPartySets = $shoppingCartItem->shoppingCartItemDetailPartySets;
     			$datas['shopping_carts'][$key]['details']['group_items'] = [];
     			foreach ($shoppingCartItemDetailPartySets as $keyPartySet => $shoppingCartItemDetailPartySet) {

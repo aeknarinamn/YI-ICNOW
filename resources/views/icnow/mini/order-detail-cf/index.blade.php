@@ -133,6 +133,27 @@
 										</div>
 									</div>
 									<textarea class="form-control" rows="4" placeholder="" disabled="">{{$data['details']['comment']}}</textarea>
+								@elseif($data['section_id'] == 3)
+									<div class="row">
+										<div class="col-xs-12">
+											@foreach($data['details']['group_items'] as $group)
+												<label>{{$group['group_name']}} ({{$group['choose_item']}})</label>
+													@foreach($group['items'] as $item)
+														@if($item['item_value'] > 0)
+															<div class="form-group">
+															    <label for="" class="col-xs-4 control-label vl-middle">{{$item['item_name']}}</label>
+															    <div class="col-xs-4">
+															      <input type="text" class="form-control" value="{{$item['item_value']}}" disabled="">
+															    </div>
+															    <div class="col-xs-4">
+															    	<div class="vl-middle">{{ $group['unit'] }} {{$item['price']}} บาท</div>
+															    </div>
+															</div>
+														@endif
+													@endforeach
+											@endforeach
+										</div>
+									</div>
 								@else
 									<div class="row">
 										<div class="col-xs-12">

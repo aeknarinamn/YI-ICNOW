@@ -54,9 +54,9 @@
                         <div class="cart-product">
                             <input type="hidden" id="main-price-data" value="{{number_format($product->price,2)}}">
                             <div class="product-price">
-                                <div class="product-price-label">ราคาขั้นต่ำ :</div>
-                                <div class="product-real-price"><label id="data-price">{{number_format($product->price,2)}}</label> บาท</div>
+                                <div class="product-price-label">วิธีเลือก : เลือกสินค้าแยกตามชนิดให้ครบ {{number_format($product->price,2)}} บาท แล้วกดใส่ตะกร้า</div>
                             </div>
+                            <div class="cart-product" style="margin-top : 35%;"><div class="product-discount">รวมราคา <label id="data-price-total-main">0</label> บาท</div></div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                             <input type="hidden" name="items[{{$count}}][max_item]" id="items-value-max-{{$count}}" value="{{$productPartySet->volumn}}">
                             <input type="hidden" name="items[{{$count}}][choose_item]" id="items-value-choose-{{$count}}" value="0">
                             <input type="hidden" id="group-original-quantity-{{$count}}" value="{{$productPartySet->volumn}}">
-                            <div class="product-group" style="margin-bottom: 70px;">
+                            <div class="product-group">
                                 <div class="product-group-title ">
                                      <div class="set-position" id="box-{{$count}}">
                                         <label id="box-{{$count}}-position">+</label> {{$productPartySet->group_name}} 
@@ -109,10 +109,10 @@
                                             <div style="width: 35%">
                                                 <img src="{{$productPartySetItem->img_url}}">
                                             </div>
-                                            <div class="text" style="margin-top: 10px">
-                                                <p >{{$productPartySetItem->value}}:</p>
+                                            <div class="text" style="margin-top: 10px; width: 100%">
+                                                <p >{{$productPartySetItem->value}}</p>
                                             </div>
-                                            <div class="text" style="margin-top: 10px">
+                                            <div class="text text-right" style="margin-top: 10px">
                                                 <p >{{$productPartySetItem->price}} บ.</p>
                                             </div>
                                         </div>
@@ -122,6 +122,7 @@
                                 </div>
                             </div>
                             <div class="line"></div>
+                            <br/>
                             <?php $count++; ?>
                         @endforeach
                         <div class="cart-product" style="margin-left: 10px"><div class="product-discount">รวมราคา <label id="data-price-total">0</label> บาท</div></div>
@@ -420,6 +421,7 @@
             }
             $('#sum-total-all').text(count);
             $('#data-price-total').text(priceAll);
+            $('#data-price-total-main').text(priceAll);
             $('#total_price').val(priceAll);
             // console.log(count);
         }

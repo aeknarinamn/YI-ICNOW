@@ -216,7 +216,35 @@
 
         function submitData()
         {
-            $('#form-submit').submit();
+            var rating1 = $('#rating_1').val();
+            var rating2 = $('#rating_2').val();
+            var rating3 = $('#rating_3').val();
+            var rating4 = $('#rating_4').val();
+
+            var isSubmit = 1;
+            var msgError = ""; 
+            if(rating1 == "" || rating1 == 0){
+                isSubmit = 0;
+                msgError += "กรุณาระบุคะแนน คุณภาพสินค้า\n";
+            }
+            if(rating2 == "" || rating2 == 0){
+                isSubmit = 0;
+                msgError += "กรุณาระบุคะแนน ความรวดเร็วในการให้บริการ\n";
+            }
+            if(rating3 == "" || rating3 == 0){
+                isSubmit = 0;
+                msgError += "กรุณาระบุคะแนน ความพึงพอใจโดยรวมในบริการ\n";
+            }
+            if(rating4 == "" || rating4 == 0){
+                isSubmit = 0;
+                msgError += "กรุณาระบุคะแนน ความพึงพอใจโดยรวมในบริการ\n";
+            }
+
+            if(isSubmit){
+                $('#form-submit').submit();
+            }else{
+                alert(msgError);
+            }
         }
 
         $(document).ready(function() {

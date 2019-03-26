@@ -153,8 +153,8 @@ class RecieveTrackingBCController extends Controller
         }
         if($trackingBc->is_line_liff == 1){
             // $url = "line://app/1451346504-27RjQW4b?code=".$code; //ICNOW Real DEV
-            // $url = "line://app/1542963128-bj74nZqG?code=".$code; //ICNOW TEST DEV
-            $url = "line://app/1451346504-BQ7xXVM6?code=".$code; //ICNOW Real UAT
+            $url = "line://app/1542963128-bj74nZqG?code=".$code; //ICNOW TEST DEV
+            // $url = "line://app/1451346504-BQ7xXVM6?code=".$code; //ICNOW Real UAT
             // dd($url);
             return redirect()->away($url);
             // return redirect($url);
