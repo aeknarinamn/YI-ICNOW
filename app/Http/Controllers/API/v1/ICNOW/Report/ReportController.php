@@ -46,13 +46,41 @@ class ReportController extends Controller
 	    		'co.mini_name',
 	    		\DB::raw('CONCAT("") as wm_code'),
 	    		\DB::raw('CONCAT("") as wm_name'),
-	    		\DB::raw('CONCAT("") as set_data'),
+	    		\DB::raw('sum(isci.retial_price*isci.quantity) as set_data'),
 	    		'co.status',
 	    		'co.created_at as date'
 	    	)
     		->leftjoin('dim_line_user_table as lu','co.line_user_id','=','lu.id')
-    		->leftjoin('fact_icnow_customer_shipping_address as csa','lu.address_id','=','csa.id')
-    		->orderByDesc('co.created_at')
+            ->leftjoin('fact_icnow_customer_shipping_address as csa','lu.address_id','=','csa.id')
+            ->leftjoin('fact_icnow_shopping_cart as isc','co.shopping_cart_id','=','isc.id')
+    		->leftjoin('fact_icnow_shopping_cart_item as isci','isc.id','=','isci.shopping_cart_id');
+        if($startDate != "" && $endDate != ""){
+            $datas = $datas->where('co.created_at','>=',$startDate)->where('co.created_at','<=',$endDate);
+        }
+        if($orderId != ""){
+            $datas = $datas->where('co.order_no',$orderId);
+        }
+        if($customerId != ""){
+            $datas = $datas->where('lu.customer_id',$customerId);
+        }
+        if($dtCode != ""){
+            $datas = $datas->where('co.dt_code',$dtCode);
+        }
+        // if($dtName != ""){
+        //     $datas = $datas->where('co.dt_code',$dtName);
+        // }
+        if($miniCode != ""){
+            $datas = $datas->where('co.mini_code',$miniCode);
+        }
+        if($miniName != ""){
+            $datas = $datas->where('co.mini_name',$miniName);
+        }
+        if($status != ""){
+            $datas = $datas->where('co.status',$status);
+        }
+
+    	$datas = $datas->orderByDesc('co.created_at')
+            ->groupBy('co.order_no')
     		->get();
 
     	return response()->json([
@@ -115,13 +143,13 @@ class ReportController extends Controller
         $datas['shopping_behavior']['header']['sessions_with_product_views'] = $sessionWithProduct;
         $datas['shopping_behavior']['header']['sessions_with_add_to_cart'] = $sessionWithAddToCart;
         $datas['shopping_behavior']['header']['sessions_with_check_out'] = $sessionWithCheckOut;
-        $datas['shopping_behavior']['header']['cancel_by_admin'] = 0;
+        $datas['shopping_behavior']['header']['cancel_by_admin'] = $orderCancleByAdmin;
         $datas['shopping_behavior']['header']['cancel_by_system'] = $orderCancleBySystem;
         $datas['shopping_behavior']['body']['all_sessions'] = $allSession;
         $datas['shopping_behavior']['body']['sessions_with_product_views'] = $sessionWithProduct;
         $datas['shopping_behavior']['body']['sessions_with_add_to_cart'] = $sessionWithAddToCart;
         $datas['shopping_behavior']['body']['sessions_with_check_out'] = $sessionWithCheckOut;
-        $datas['shopping_behavior']['body']['cancel_by_admin'] = 0;
+        $datas['shopping_behavior']['body']['cancel_by_admin'] = $orderCancleByAdmin;
         $datas['shopping_behavior']['body']['cancel_by_system'] = $orderCancleBySystem;
 
         return response()->json([
@@ -294,6 +322,9 @@ class ReportController extends Controller
             )
             ->leftjoin('fact_icnow_shopping_cart as sc','co.shopping_cart_id','=','sc.id')
             ->leftjoin('fact_icnow_shopping_cart_item as sci','sci.shopping_cart_id','=','sc.id');
+        if($startDate != "" && $endDate != ""){
+            $queryDatas = $queryDatas->where('co.created_at','>=',$startDate)->where('co.created_at','<=',$endDate);
+        }
         $orderGroupByOrderId = clone $queryDatas;
         $orderGroupByOrderId = $orderGroupByOrderId
             ->select(
@@ -319,8 +350,9 @@ class ReportController extends Controller
             \DB::raw('sum(sci.quantity) as quantity'),
             \DB::raw('sum(sci.price) as total_price'),
             'co.mini_name',
-            'co.created_at as datetime'
-        )->groupBy('co.order_no')->get();
+            'co.created_at as datetime',
+            \DB::raw('max(co.created_at) as max_created_at')
+        )->groupBy('co.order_no')->get()->sortByDesc('max_created_at')->take(5);
 
         $count = 0;
         foreach ($orderAlls as $key => $orderAll) {
