@@ -53,7 +53,8 @@
             <section>
                 <div class="contact-wrap">
                     <div class="deliver-date">
-                        <div class="text-center"><font size="6px"><b>แบบประเมิณความพึงพอใจ</b></font></div>
+                        <!-- <div class="text-center"><font size="6px"><b>แบบประเมิณความพึงพอใจ</b></font></div> -->
+                        <div class="text-center"><img src="/icnow/resources/images/rating_header.png" style="width: 200 px; height: 100 px"></div>
                         <div class="deliver-date-title"><font size="4px">คุณภาพสินค้า</font></div>
                         <div class="star-rating">
                             <span class="fa fa-star-o" data-rating="1"></span>
